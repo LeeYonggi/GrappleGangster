@@ -15,7 +15,7 @@ RenderManager::~RenderManager()
 
 void RenderManager::CreateRectVertex()
 {
-	float size = 0.1f;
+	float size = 1.0f;
 
 	vertex.push_back(TexVertex(Vector3(size, size, 0), Vector3(0, 0, -1),	Vector2(1.f, 1.f)));
 	vertex.push_back(TexVertex(Vector3(size, -size, 0), Vector3(0, 0, -1),  Vector2(1.f, 1.f)));

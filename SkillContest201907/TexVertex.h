@@ -7,7 +7,7 @@ struct TexVertex
 	Vector3 normal;
 	Vector2 color;
 
-	enum { FVF = (D3DFVF_XYZ, D3DFVF_NORMAL, D3DFVF_TEX1) };
+	enum { FVF = (D3DFVF_XYZ| D3DFVF_NORMAL| D3DFVF_TEX1) };
 
 	TexVertex() { }
 
