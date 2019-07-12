@@ -76,6 +76,7 @@
 #include <vector>
 #include <list>
 #include <string>
+#include <map>
 
 // CRT's memory leak detection
 #if defined(DEBUG) || defined(_DEBUG)
@@ -128,7 +129,7 @@ auto __vsnwprintf = _vsnwprintf;
 #define SAFE_DELETE_ARRAY(p) { if (p) { delete[] (p);   (p)=NULL; } }
 #endif    
 #ifndef SAFE_RELEASE
-#define SAFE_RELEASE(p)      { if (p) { (p)->Release(); (p)=NULL; } }
+#define SAFE_RELEASE(p)      { if (p) { (p)->Release();  } }
 #endif
 
 

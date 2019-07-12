@@ -5,6 +5,9 @@ public:
 	MainProc();
 	virtual ~MainProc();
 
+private:
+	Texture *tex;
+
 public:
 	void Init();
 	void Update();

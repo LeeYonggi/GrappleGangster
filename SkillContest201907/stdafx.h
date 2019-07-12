@@ -18,5 +18,6 @@ constexpr int SCREEN_Y = 720;
 #include "TexVertex.h"
 #include "CameraManager.h"
 #include "RenderManager.h"
+#include "ResourceManager.h"
 
 #include "MainProc.h"

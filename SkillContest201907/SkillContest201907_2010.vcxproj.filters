@@ -24,6 +24,12 @@
     <Filter Include="Manager\CameraManager">
       <UniqueIdentifier>{67c83238-49aa-4135-b74e-0e789675b024}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\ResourceManager">
+      <UniqueIdentifier>{43426b59-4cef-4a62-9760-b4d7a4b72817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vertex">
+      <UniqueIdentifier>{a89f31a0-5b88-4833-984e-062534de5ff1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -95,6 +101,9 @@
     <ClCompile Include="CameraManager.cpp">
       <Filter>Manager\CameraManager</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Manager\ResourceManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -113,9 +122,14 @@
     <ClInclude Include="RenderManager.h">
       <Filter>Manager\RenderManager</Filter>
     </ClInclude>
-    <ClInclude Include="TexVertex.h" />
     <ClInclude Include="CameraManager.h">
       <Filter>Manager\CameraManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Manager\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TexVertex.h">
+      <Filter>Vertex</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
