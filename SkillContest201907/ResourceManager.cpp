@@ -10,10 +10,10 @@ ResourceManager::~ResourceManager()
 	Release();
 }
 
-Texture* ResourceManager::AddTexture(string path)
+Texture* ResourceManager::LoadTexture(string path)
 {
 	auto iter = m_Texture.find(path);
-	if (iter != m_Texture.end()) return nullptr;
+	if (iter != m_Texture.end()) return iter->second;
 
 	Texture* temp = new Texture();
 
@@ -34,6 +34,29 @@ Texture* ResourceManager::AddTexture(string path)
 	m_Texture.insert(make_pair(path, temp));
 
 	return temp;
+}
+
+Shader* ResourceManager::LoadShader(string path)
+{
+	auto iter = m_Shader.find(path);
+	if (iter != m_Shader.end()) return iter->second;
+
+	Shader *shader = nullptr;
+	LPD3DXBUFFER pError = nullptr;
+	string str = "./Resource/" + path;
+
+	DWORD shaderFlags = 0;
+
+	D3DXCreateEffectFromFileA(
+		DEVICE,
+		str.c_str(),
+		NULL, NULL,
+		shaderFlags,
+		NULL,
+		&shader,
+		&pError);
+
+	return shader;
 }
 
 void ResourceManager::Release()

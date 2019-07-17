@@ -1,6 +1,7 @@
 #include "DXUT.h"
 #include "MainProc.h"
 
+#include "Player.h"
 
 MainProc::MainProc()
 {
@@ -13,7 +14,8 @@ MainProc::~MainProc()
 
 void MainProc::Init()
 {
-	tex = Resources.AddTexture("Character/test.png");
+	player = new Player();
+	player->Init();
 }
 
 void MainProc::Update()
@@ -24,8 +26,7 @@ void MainProc::Update()
 void MainProc::Render()
 {
 	CAMERAMANAGER->SetCamera();
-	RENDERMANAGER->DrawTexture(tex, {0, 0, 0});
-	RENDERMANAGER->DrawSprite(tex, {0, 0, 0});
+	player->Render();
 }
 
 void MainProc::Release()

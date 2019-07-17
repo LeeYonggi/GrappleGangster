@@ -77,6 +77,7 @@
 #include <list>
 #include <string>
 #include <map>
+#include <functional>
 
 // CRT's memory leak detection
 #if defined(DEBUG) || defined(_DEBUG)

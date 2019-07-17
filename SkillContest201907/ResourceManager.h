@@ -11,21 +11,12 @@ public:
 
 private:
 	map<string, Texture*> m_Texture;
+	map<string, Shader*> m_Shader;
 
 public:
-	template<typename T>
-	T* Load(const string& path)
-	{
-		static_assert(false);
-	}
+	Texture* LoadTexture(string path);
 
-	template <>
-	Texture* Load<Texture>(const string& path)
-	{
-		AddTexture(path);
-	}
-
-	Texture* AddTexture(string path);
+	Shader* LoadShader(string path);
 
 	void Release();
 };

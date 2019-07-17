@@ -6,6 +6,7 @@ RenderManager::RenderManager()
 {
 	CreateRectVertex();
 	CreateSprite();
+	shader = Resources.LoadShader("Shader/DefaultShader.fx");
 }
 
 
@@ -17,6 +18,8 @@ RenderManager::~RenderManager()
 void RenderManager::CreateRectVertex()
 {
 	float size = 48.0f;
+
+	vertex.reserve(6);
 
 	vertex.push_back(TexVertex(Vector3(size, size, 0), Vector3(0, 0, -1),	Vector2(1.f, 0.f)));
 	vertex.push_back(TexVertex(Vector3(size, -size, 0), Vector3(0, 0, -1),  Vector2(1.f, 1.f)));
@@ -60,7 +63,7 @@ void RenderManager::DrawTexture(Texture* texture, Vector3 position, Vector2 scal
 
 	matW = matS * matR * matT;
 
-	DEVICE->SetTransform(D3DTS_WORLD, &matW);
+	//DEVICE->SetTransform(D3DTS_WORLD, &matW);
 
 	D3DMATERIAL9 mtl;
 	mtl.Ambient = mtl.Diffuse = mtl.Specular = mtl.Emissive = D3DXCOLOR(1, 1, 1, 1);
@@ -73,16 +76,30 @@ void RenderManager::DrawTexture(Texture* texture, Vector3 position, Vector2 scal
 	DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 
-	DEVICE->SetFVF(TexVertex::FVF);
+	//DEVICE->SetFVF(TexVertex::FVF);
 
-	DEVICE->SetTexture(0, texture->tex);
+	//DEVICE->SetTexture(0, texture->tex);
 
-	DEVICE->SetMaterial(&mtl);
+	//DEVICE->SetMaterial(&mtl);
+
+	D3DXHANDLE handle;
+	shader->GetParameterByName(handle, "gWorldMat");
+	shader->SetMatrix(handle, &matW);
+	shader->GetParameterByName(handle, "gViewMat");
+	shader->SetMatrix(handle, &CAMERAMANAGER->GetView());
+	shader->GetParameterByName(handle, "gProjMat");
+	shader->SetMatrix(handle, &CAMERAMANAGER->GetProjection());
+
+
+	UINT numPasses = 0;
+	shader->Begin(&numPasses, NULL);
 
 	DEVICE->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
 		vertex.size() / 3,
 		&vertex[0],
 		sizeof(TexVertex));
+
+	shader->End();
 }
 
 void RenderManager::DrawSprite(Texture* texture, Vector3 position, Vector2 scale, float rotation)

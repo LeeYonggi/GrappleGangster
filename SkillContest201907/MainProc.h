@@ -1,4 +1,6 @@
 #pragma once
+
+class Player;
 class MainProc
 {
 public:
@@ -7,6 +9,7 @@ public:
 
 private:
 	Texture *tex;
+	Player* player;
 
 public:
 	void Init();

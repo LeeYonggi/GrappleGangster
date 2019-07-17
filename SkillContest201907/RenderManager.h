@@ -17,6 +17,7 @@ public:
 private:
 	vector<TexVertex> vertex;
 	LPD3DXSPRITE lpSprite;
+	Shader* shader;
 
 private:
 	void CreateRectVertex();
@@ -30,6 +31,7 @@ public:
 
 	void DrawSprite(Texture* texture, Vector3 position, Vector2 scale = {1, 1},
 		float rotation = 0.0f);
+
 };
 
 #define RENDERMANAGER RenderManager::GetInstance()

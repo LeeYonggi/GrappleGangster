@@ -120,6 +120,9 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     // Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)
     _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+
+	AllocConsole();
+
 #endif
 
     // Set the callback functions
@@ -136,7 +139,7 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     // TODO: Perform any application-level initialization here
 
     // Initialize DXUT and create the desired Win32 window and Direct3D device for the application
-    DXUTInit( true, true ); // Parse the command line and show msgboxes
+    DXUTInit( true, true, NULL, true ); // Parse the command line and show msgboxes
     DXUTSetHotkeyHandling( true, true, true );  // handle the default hotkeys
     DXUTSetCursorSettings( true, true ); // Show the cursor and clip it when in full screen
     DXUTCreateWindow( L"SkillContest201907" );
@@ -146,6 +149,8 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     DXUTMainLoop();
 
     // TODO: Perform any application-level cleanup here
+
+	FreeConsole();
 
     return DXUTGetExitCode();
 }
