@@ -1,3 +1,0 @@
-﻿  ResourceManager.cpp
-D:\기능대회\SkillContest201907\SkillContest201907\ResourceManager.cpp(50,7): warning C4189:  'a': 지역 변수가 초기화되었으나 참조되지 않았습니다.
-  SkillContest201907_2010.vcxproj -> D:\기능대회\SkillContest201907\SkillContest201907\Debug\SkillContest201907.exe

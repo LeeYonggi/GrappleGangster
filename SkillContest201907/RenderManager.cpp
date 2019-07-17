@@ -84,7 +84,7 @@ void RenderManager::DrawTexture(Texture* texture, Vector3 position, Vector2 scal
 
 	D3DXHANDLE handle;
 	shader->GetParameterByName(handle, "gWorldMat");
-	shader->SetMatrix(handle, &matW);
+	shader->SetMatrix("gWorldMat", &matW);
 	shader->GetParameterByName(handle, "gViewMat");
 	shader->SetMatrix(handle, &CAMERAMANAGER->GetView());
 	shader->GetParameterByName(handle, "gProjMat");

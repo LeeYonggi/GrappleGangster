@@ -11,12 +11,12 @@ public:
 
 private:
 	map<string, Texture*> m_Texture;
-	map<string, Shader*> m_Shader;
+	map<string, LPD3DXEFFECT> m_Shader;
 
 public:
 	Texture* LoadTexture(string path);
 
-	Shader* LoadShader(string path);
+	LPD3DXEFFECT LoadShader(string path);
 
 	void Release();
 };

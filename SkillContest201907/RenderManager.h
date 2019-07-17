@@ -17,7 +17,7 @@ public:
 private:
 	vector<TexVertex> vertex;
 	LPD3DXSPRITE lpSprite;
-	Shader* shader;
+	LPD3DXEFFECT shader;
 
 private:
 	void CreateRectVertex();

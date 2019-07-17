@@ -7,7 +7,6 @@
 using Vector2 = D3DXVECTOR2;
 using Vector3 = D3DXVECTOR3;
 using Matrix  = D3DXMATRIX;
-using Shader  = ID3DXEffect;
 
 constexpr int SCREEN_X = 1280;
 constexpr int SCREEN_Y = 720;
@@ -20,9 +19,11 @@ using Object = void*;
 #include "EventHandler.h"
 
 #include "TexVertex.h"
+
 #include "CameraManager.h"
 #include "RenderManager.h"
 #include "ResourceManager.h"
+#include "InputManager.h"
 
 #include "GameObject.h"
 

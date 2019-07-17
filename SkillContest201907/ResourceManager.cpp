@@ -36,14 +36,14 @@ Texture* ResourceManager::LoadTexture(string path)
 	return temp;
 }
 
-Shader* ResourceManager::LoadShader(string path)
+LPD3DXEFFECT ResourceManager::LoadShader(string path)
 {
 	auto iter = m_Shader.find(path);
 	if (iter != m_Shader.end()) return iter->second;
 
-	Shader *shader = nullptr;
+	LPD3DXEFFECT shader;
 	LPD3DXBUFFER pError = nullptr;
-	string str = "./Resource/" + path;
+	string str = "./Resources/" + path;
 
 	DWORD shaderFlags = 0;
 
@@ -55,6 +55,23 @@ Shader* ResourceManager::LoadShader(string path)
 		NULL,
 		&shader,
 		&pError);
+
+	if (!shader && pError)
+	{
+		int size = pError->GetBufferSize();
+		LPVOID point = pError->GetBufferPointer();
+
+		if (point)
+		{
+			char* str = new char[size];
+
+			sprintf(str, (const char*)point, size);
+			OutputDebugStringA(str);
+			delete[] str;
+		}
+	}
+
+	m_Shader.insert(make_pair(path, shader));
 
 	return shader;
 }

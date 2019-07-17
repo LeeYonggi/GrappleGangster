@@ -26,15 +26,13 @@ float4x4 gWorldMat;
 float4x4 gViewMat;
 float4x4 gProjMat;
 
-
 VS_OUTPUT vs_main(VS_INPUT input)
 {
 	VS_OUTPUT output;
 
-	float4 worldPos = mul(input.mPos, gWorldMat);
-
-	output.mPos = mul(worldPos, gViewMat);
-	output.mPos = mul(output.Pos, gProjMat);
+	output.mPos = mul(input.mPos, gWorldMat);
+	output.mPos = mul(output.mPos, gViewMat);
+	output.mPos = mul(output.mPos, gProjMat);
 
 	output.mUV = input.mUV;
 

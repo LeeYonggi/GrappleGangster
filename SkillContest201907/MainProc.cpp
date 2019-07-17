@@ -34,4 +34,5 @@ void MainProc::Release()
 	CAMERAMANAGER->ReleaseInstance();
 	RENDERMANAGER->ReleaseInstance();
 	Resources.ReleaseInstance();
+	
 }

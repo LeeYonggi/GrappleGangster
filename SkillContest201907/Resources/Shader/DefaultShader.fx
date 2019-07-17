@@ -17,7 +17,7 @@ struct PS_INPUT
 };
 
 texture gDiffuseTex;
-sampler2D gDiffuseSamler = sampler_state
+sampler2D gDiffuseSampler = sampler_state
 {
 	Texture = (gDiffuseTex);
 };
@@ -26,14 +26,14 @@ float4x4 gWorldMat;
 float4x4 gViewMat;
 
 
-VS_OUTPUT vs_outline(VS_INPUT input)
+VS_OUTPUT vs_main(VS_INPUT input)
 {
 	VS_OUTPUT output;
 
-	float4 worldPos = mul(input.mPos, gWorldMat);
+	output.mPos = mul(input.mPos, gWorldMat);
 
-	output.mPos = mul(worldPos, gWorldMat);
-	output.mPos = mul(output.Pos, gViewMat);
+	output.mPos = mul(output.mPos, gWorldMat);
+	output.mPos = mul(output.mPos, gViewMat);
 
 	output.mUV = input.mUV;
 
@@ -47,4 +47,13 @@ float4 ps_main(PS_INPUT input) : COLOR
 	albedo.a = 1;
 
 	return float4(albedo);
+}
+
+technique Color
+{
+	pass Pass_0
+	{
+		VertexShader = compile vs_2_0 vs_main();
+		PixelShader = compile ps_2_0 ps_main();
+	}
 }
