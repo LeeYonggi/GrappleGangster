@@ -14,25 +14,33 @@ MainProc::~MainProc()
 
 void MainProc::Init()
 {
-	player = new Player();
-	player->Init();
+	SCENEMANAGER->AddScene(new InGameScene());
 }
 
 void MainProc::Update()
 {
+	OBJECTMANAGER->Update();
 
+	SCENEMANAGER->Update();
+
+	INPUTMANAGER->KeyUpdate();
 }
 
 void MainProc::Render()
 {
 	CAMERAMANAGER->SetCamera();
-	player->Render();
+
+	OBJECTMANAGER->Render();
+	
+	SCENEMANAGER->Render();
 }
 
 void MainProc::Release()
 {
 	CAMERAMANAGER->ReleaseInstance();
 	RENDERMANAGER->ReleaseInstance();
-	Resources.ReleaseInstance();
-	
+	OBJECTMANAGER->ReleaseInstance();
+	SCENEMANAGER->ReleaseInstance();
+	INPUTMANAGER->ReleaseInstance();
+	Resources->ReleaseInstance();
 }

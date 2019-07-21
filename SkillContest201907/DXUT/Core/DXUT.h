@@ -78,6 +78,8 @@
 #include <string>
 #include <map>
 #include <functional>
+#include <iostream>
+#include <algorithm>
 
 // CRT's memory leak detection
 #if defined(DEBUG) || defined(_DEBUG)

@@ -1,19 +1,24 @@
 #pragma once
 
 
-//define
+// define
 #define DEVICE DXUTGetD3D9Device()
+#define ELTime DXUTGetElapsedTime() * timeScale
 
 using Vector2 = D3DXVECTOR2;
 using Vector3 = D3DXVECTOR3;
-using Matrix  = D3DXMATRIX;
+using Matrix  = D3DXMATRIXA16;
+using Color	  = D3DXCOLOR;
 
 constexpr int SCREEN_X = 1280;
 constexpr int SCREEN_Y = 720;
 
 using Object = void*;
 
+extern float timeScale;
 
+
+// 헤더파일
 #include "Singleton.h"
 
 #include "EventHandler.h"
@@ -22,9 +27,14 @@ using Object = void*;
 
 #include "CameraManager.h"
 #include "RenderManager.h"
-#include "ResourceManager.h"
-#include "InputManager.h"
 
 #include "GameObject.h"
+
+#include "ResourceManager.h"
+#include "InputManager.h"
+#include "SceneManager.h"
+#include "ObjectManager.h"
+
+#include "InGameScene.h"
 
 #include "MainProc.h"

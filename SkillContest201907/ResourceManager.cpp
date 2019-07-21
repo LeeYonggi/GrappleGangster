@@ -84,4 +84,10 @@ void ResourceManager::Release()
 		SAFE_DELETE(iter.second);
 	}
 	m_Texture.clear();
+
+	for (auto iter : m_Shader)
+	{
+		SAFE_RELEASE(iter.second);
+	}
+	m_Shader.clear();
 }

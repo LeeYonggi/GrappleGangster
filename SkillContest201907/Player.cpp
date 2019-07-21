@@ -3,7 +3,7 @@
 
 void Player::Init()
 {
-	mainTexture = Resources.LoadTexture("Character/test.png");
+	mainTexture = Resources->LoadTexture("Character/test.png");
 
 }
 
@@ -14,7 +14,7 @@ void Player::Update()
 
 void Player::Render()
 {
-	RENDERMANAGER->DrawTexture(mainTexture, pos, scale, rotate);
+	RENDERMANAGER->DrawTexture(mainTexture, {0, 0, 0}, scale, rotate);
 
 }
 

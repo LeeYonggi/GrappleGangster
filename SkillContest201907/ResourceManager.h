@@ -21,4 +21,4 @@ public:
 	void Release();
 };
 
-#define Resources (*ResourceManager::GetInstance())
+#define Resources ResourceManager::GetInstance()

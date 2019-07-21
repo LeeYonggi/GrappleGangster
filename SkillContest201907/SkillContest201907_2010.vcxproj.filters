@@ -48,6 +48,15 @@
     <Filter Include="Manager\ObjectManager">
       <UniqueIdentifier>{f6b7444e-8d2c-4479-9b5f-50cbb0d60aab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{38189df1-2431-49cf-8f1b-fa53fc8fbc08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\InGameScene">
+      <UniqueIdentifier>{cf65ca82-6005-4792-b2fa-edebfda62580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Background">
+      <UniqueIdentifier>{070d348c-0d5c-4ddd-8f9d-0e58e5519b7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -140,6 +149,15 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Manager\SceneManager</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameScene.cpp">
+      <Filter>Scenes\InGameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>GameObject\Background</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -184,6 +202,15 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Manager\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameScene.h">
+      <Filter>Scenes\InGameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>GameObject\Background</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

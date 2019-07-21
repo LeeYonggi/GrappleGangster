@@ -7,8 +7,9 @@ class InputManager :
 	public Singleton<InputManager>
 {
 private:
-	int nowKey[KEY_MAX];
-	int pastKey[KEY_MAX];
+	bool nowKey[KEY_MAX];
+	bool pastKey[KEY_MAX];
+	Vector2 mouse;
 
 public:
 
@@ -24,5 +25,7 @@ public:
 	bool IsKeyPress(int key) { return (nowKey[key] == true && pastKey[key] == true); }
 	bool IsKeyUp(int key)	 { return (nowKey[key] == false && pastKey[key] == true); }
 
+	Vector2 GetMousePos() { return mouse; }
 };
 
+#define	INPUTMANAGER InputManager::GetInstance()

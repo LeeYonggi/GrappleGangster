@@ -13,27 +13,26 @@ struct VS_OUTPUT
 struct PS_INPUT
 {
 	float2 mUV : TEXCOORD0;
-	float3 mDiffuse : TEXCOORD2;
 };
 
 texture gDiffuseTex;
-sampler2D gDiffuseSampler = sampler_state
+sampler2D gDiffuseSamler = sampler_state
 {
 	Texture = (gDiffuseTex);
 };
 
 float4x4 gWorldMat;
 float4x4 gViewMat;
-
+float4x4 gProjMat;
+float4 gColor;
 
 VS_OUTPUT vs_main(VS_INPUT input)
 {
 	VS_OUTPUT output;
 
 	output.mPos = mul(input.mPos, gWorldMat);
-
-	output.mPos = mul(output.mPos, gWorldMat);
 	output.mPos = mul(output.mPos, gViewMat);
+	output.mPos = mul(output.mPos, gProjMat);
 
 	output.mUV = input.mUV;
 
@@ -42,11 +41,11 @@ VS_OUTPUT vs_main(VS_INPUT input)
 
 float4 ps_main(PS_INPUT input) : COLOR
 {
-	float4 albedo = tex2D(gDiffuseSampler, input.mUV);
+	float4 albedo = tex2D(gDiffuseSamler, input.mUV);
 	
-	albedo.a = 1;
-
-	return float4(albedo);
+	albedo = albedo * gColor;
+	
+	return albedo;
 }
 
 technique Color
@@ -55,5 +54,9 @@ technique Color
 	{
 		VertexShader = compile vs_2_0 vs_main();
 		PixelShader = compile ps_2_0 ps_main();
+		AlphaBlendEnable = true;
+		BlendOp = 1;
+		DestBlend = 6;
+		SrcBlend = 5;
 	}
 }

@@ -7,10 +7,6 @@ public:
 	MainProc();
 	virtual ~MainProc();
 
-private:
-	Texture *tex;
-	Player* player;
-
 public:
 	void Init();
 	void Update();
