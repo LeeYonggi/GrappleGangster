@@ -34,6 +34,7 @@ using Object = void*;
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "ObjectManager.h"
+#include "GameManager.h"
 
 #include "InGameScene.h"
 

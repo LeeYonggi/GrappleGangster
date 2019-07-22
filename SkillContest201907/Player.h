@@ -8,6 +8,7 @@ class Player :
 private:
 	Vector3 moveVector = Vector3(0, 0, 0);
 	MotionBlur* motionBlur = nullptr;
+	Timer* timer = nullptr;
 	float moveSpeed = 0.0f;
 
 public:

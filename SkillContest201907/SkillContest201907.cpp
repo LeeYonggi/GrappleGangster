@@ -34,7 +34,6 @@ bool CALLBACK ModifyDeviceSettings( DXUTDeviceSettings* pDeviceSettings, void* p
     return true;
 }
 
-
 //--------------------------------------------------------------------------------------
 // Create any D3D9 resources that will live through a device reset (D3DPOOL_MANAGED)
 // and aren't tied to the back buffer size
@@ -47,7 +46,8 @@ HRESULT CALLBACK OnD3D9CreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURF
 #else
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console") 
 #endif
-	//_CrtSetBreakAlloc(369);
+	//_CrtSetBreakAlloc(7560);
+
 	main.Init();
     return S_OK;
 }

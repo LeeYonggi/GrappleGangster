@@ -57,7 +57,7 @@ public:
 		return true;
 	}
 
-	void operator +=(Event<EventParam>* e)
+	void operator+= (Event<EventParam>* e)
 	{
 		AddListener(e);
 	}

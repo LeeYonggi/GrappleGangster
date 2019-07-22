@@ -35,7 +35,10 @@ void MotionBlur::Update()
 	if (timer->IsEnd)
 	{
 		MotionEffect* effect = new MotionEffect(0.15f, obj->GetTexture(), Vector3(-300, 0, 0.1f));
-		effect->SetPos(obj->GetPos());
+		Vector3 effectPos = obj->GetPos();
+
+		effectPos.z = 300;
+		effect->SetPos(effectPos);
 
 		OBJECTMANAGER->AddGameObject(effect, GameObject::EFFECT);
 		timer->Reset(0.01f);

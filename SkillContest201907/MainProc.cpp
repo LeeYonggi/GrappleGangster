@@ -1,7 +1,6 @@
 #include "DXUT.h"
 #include "MainProc.h"
 
-#include "Player.h"
 
 MainProc::MainProc()
 {

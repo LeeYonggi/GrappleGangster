@@ -9,6 +9,7 @@ void Player::Init()
 	mainTexture = Resources->LoadTexture("Character/test.png");
 	motionBlur = OBJECTMANAGER->AddGameObject(new MotionBlur(this), GameObject::EFFECT);
 	moveSpeed = 200;
+	timer = Timer::AddTimer(1.0f);
 }
 
 void Player::Update()
@@ -25,6 +26,7 @@ void Player::Render()
 void Player::Release()
 {
 	motionBlur->SetDestroy(true);
+	Timer::RemoveTimer(timer);
 }
 
 void Player::PlayerMove()
@@ -33,14 +35,15 @@ void Player::PlayerMove()
 	moveVector.y = INPUTMANAGER->GetVertical();
 
 	if (moveVector.x < 0)
-		moveVector.x = -0.5f;
+		moveVector.x = -0.7f;
 	
 	pos += moveVector * moveSpeed * ELTime;
+	pos.z = pos.y + SCREEN_Y * 0.5f;
 }
 
 void Player::PlayerAttack()
 {
-	if (INPUTMANAGER->IsKeyDown(VK_LBUTTON))
+	if (INPUTMANAGER->IsKeyDown(VK_LBUTTON) && timer->IsEnd)
 	{
 		Vector3 dir = ScreenToWorldCamera(INPUTMANAGER->GetMousePos());
 		dir = GetVec3Distance(Vector3(pos.x, pos.y, 0), dir);
@@ -49,5 +52,6 @@ void Player::PlayerAttack()
 			dir * 1000);
 		bullet->SetPos(pos);
 		OBJECTMANAGER->AddGameObject(bullet, GameObject::PLAYER_BULLET);
+		timer->Reset(1.0f);
 	}
 }

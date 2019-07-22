@@ -4,7 +4,7 @@
 Background::Background()
 {
 	moveSpeed = 1000.0f;
-	pos.z = 10;
+	pos.z = 720;
 }
 
 Background::~Background()

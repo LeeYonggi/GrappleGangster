@@ -75,6 +75,15 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{0a4bd21f-9211-4f63-a4e7-e2e93a026010}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Enemy">
+      <UniqueIdentifier>{eaf06cf9-df4f-43a7-806b-f5eb6f6f0c1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Enemy\Enemy1">
+      <UniqueIdentifier>{c997640c-5c07-4d5d-860f-66dd2fbc88de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\GameManager">
+      <UniqueIdentifier>{528bddd7-4106-41fd-b1b2-6f39cb21e897}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -191,6 +200,15 @@
     <ClCompile Include="Utility.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>GameObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy1.cpp">
+      <Filter>GameObject\Enemy\Enemy1</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Manager\GameManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -259,6 +277,15 @@
     </ClInclude>
     <ClInclude Include="Utility.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>GameObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy1.h">
+      <Filter>GameObject\Enemy\Enemy1</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Manager\GameManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

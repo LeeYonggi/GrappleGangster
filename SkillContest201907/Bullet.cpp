@@ -13,7 +13,6 @@ void Bullet::Update()
 
 	if (timer->IsEnd)
 	{
-		Timer::RemoveTimer(timer);
 		SetDestroy(true);
 	}
 }
@@ -25,4 +24,5 @@ void Bullet::Render()
 
 void Bullet::Release()
 {
+	Timer::RemoveTimer(timer);
 }

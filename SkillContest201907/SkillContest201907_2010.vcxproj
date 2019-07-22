@@ -388,12 +388,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Enemy1.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enemy1.h" />
     <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InGameScene.h" />
     <ClInclude Include="InputManager.h" />
