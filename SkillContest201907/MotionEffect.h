@@ -2,13 +2,18 @@
 #include "GameObject.h"
 
 class MotionBlur;
-class Player :
+class MotionEffect :
 	public GameObject
 {
+public:
+	MotionEffect(float _time, Texture *_texture, Vector3 _moveVector);
+	virtual ~MotionEffect();
+
+public:
+	Timer* timer = nullptr;
+
 private:
 	Vector3 moveVector = Vector3(0, 0, 0);
-	MotionBlur* motionBlur = nullptr;
-	float moveSpeed = 0.0f;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -17,8 +22,5 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-public:
-	void PlayerMove();
-	void PlayerAttack();
 };
 

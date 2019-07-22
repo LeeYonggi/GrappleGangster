@@ -25,11 +25,17 @@ void ObjectManager::Update()
 		{
 			if ((*_iter)->GetDestroy())
 			{
-				SAFE_RELEASE((*_iter));
-				SAFE_DELETE((*_iter));
+				auto a = *_iter;
+				objList.remove(a);
+
+				if (a)
+				{
+					a->Release();
+					delete a;
+					a = nullptr;
+				}
 
 				_iter = iter->second.erase(_iter);
-				objList.remove((*_iter));
 			}
 			else
 			{
@@ -44,9 +50,12 @@ void ObjectManager::Update()
 bool compare(GameObject *obj1, GameObject *obj2)
 {
 	if (obj1->GetPos().z > obj2->GetPos().z)
-		return true;		  
-	if (obj1->GetPos().y > obj2->GetPos().y)
 		return true;
+	if (obj1->GetPos().z == obj2->GetPos().z)
+	{
+		if (obj1->GetPos().y > obj2->GetPos().y)
+			return true;
+	}
 	return false;
 }
 

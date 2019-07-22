@@ -57,6 +57,24 @@
     <Filter Include="GameObject\Background">
       <UniqueIdentifier>{070d348c-0d5c-4ddd-8f9d-0e58e5519b7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\MotionBlur">
+      <UniqueIdentifier>{689e23eb-8dbf-43ed-9dab-c97f2697e8e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\MotionBlur\MotionEffect">
+      <UniqueIdentifier>{74356e69-68a6-41eb-a4b1-902fb9c7565c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Bullets">
+      <UniqueIdentifier>{6972bc38-217b-4208-8591-b73cfa5adda9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EventHandler">
+      <UniqueIdentifier>{4d06c459-ae90-4887-977b-80171598c808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Timer">
+      <UniqueIdentifier>{8f52152a-8bb4-4913-b8eb-431ffa4ba1e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{0a4bd21f-9211-4f63-a4e7-e2e93a026010}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -131,9 +149,6 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Manager\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="EventHandler.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -157,6 +172,24 @@
     </ClCompile>
     <ClCompile Include="Background.cpp">
       <Filter>GameObject\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionBlur.cpp">
+      <Filter>GameObject\MotionBlur</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionEffect.cpp">
+      <Filter>GameObject\MotionBlur\MotionEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="EventHandler.cpp">
+      <Filter>System\EventHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>System\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>GameObject\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,9 +218,6 @@
     <ClInclude Include="TexVertex.h">
       <Filter>Vertex</Filter>
     </ClInclude>
-    <ClInclude Include="EventHandler.h">
-      <Filter>System</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
@@ -211,6 +241,24 @@
     </ClInclude>
     <ClInclude Include="Background.h">
       <Filter>GameObject\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionBlur.h">
+      <Filter>GameObject\MotionBlur</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionEffect.h">
+      <Filter>GameObject\MotionBlur\MotionEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandler.h">
+      <Filter>System\EventHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>System\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>GameObject\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

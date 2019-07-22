@@ -1,14 +1,16 @@
 #pragma once
 #include "GameObject.h"
 
-class MotionBlur;
-class Player :
-	public GameObject
+class MotionBlur
+	: public GameObject
 {
+public:
+	MotionBlur(GameObject *targetObj);
+	virtual ~MotionBlur();
+
 private:
-	Vector3 moveVector = Vector3(0, 0, 0);
-	MotionBlur* motionBlur = nullptr;
-	float moveSpeed = 0.0f;
+	GameObject *obj;
+	Timer* timer;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -17,8 +19,6 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-public:
-	void PlayerMove();
-	void PlayerAttack();
+
 };
 

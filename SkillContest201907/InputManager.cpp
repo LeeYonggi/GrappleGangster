@@ -21,8 +21,28 @@ void InputManager::KeyUpdate()
 	POINT point;
 	
 	GetCursorPos(&point);
-	ClientToScreen(DXUTGetHWND(), &point);
+	ScreenToClient(DXUTGetHWND(), &point);
 
 	mouse.x = point.x;
 	mouse.y = point.y;
+}
+
+float InputManager::GetHorizontal()
+{
+	float result = 0.0f;
+
+	result += (IsKeyPress(VK_RIGHT) || IsKeyPress('D'));
+	result -= (IsKeyPress(VK_LEFT) || IsKeyPress('A'));
+
+	return result;
+}
+
+float InputManager::GetVertical()
+{
+	float result = 0.0f;
+
+	result += (IsKeyPress(VK_UP) || IsKeyPress('W'));
+	result -= (IsKeyPress(VK_DOWN) || IsKeyPress('S'));
+	
+	return result;
 }

@@ -2,10 +2,13 @@
 
 #define Property(in) __declspec(property(in))
 
+class ObjectManager;
 class GameObject
 {
+	friend ObjectManager;
 public:
 	GameObject();
+	GameObject(Texture* tex) : mainTexture(tex) {}
 	virtual ~GameObject();
 
 public:
@@ -24,11 +27,12 @@ public:
 
 
 protected:
-	Vector3 pos	  = Vector3(0, 0, 0);
+	Vector3 pos = Vector3(0, 0, 0);
 	Vector2 scale = Vector2(1, 1);
-	float rotate  = 0;
+	float rotate = 0;
+	Color color = Color(1, 1, 1, 1);
 
-	Texture *mainTexture;
+	Texture* mainTexture;
 
 	GAMEOBJECT_STATE tag = DEFAULT;
 
@@ -36,10 +40,10 @@ protected:
 	bool isDestroy = false;
 
 public:
-	virtual void Init()		= 0;
-	virtual void Update()	= 0;
-	virtual void Render()	= 0;
-	virtual void Release()	= 0;
+	virtual void Init() = 0;
+	virtual void Update() = 0;
+	virtual void Render() = 0;
+	virtual void Release() = 0;
 
 public:
 	Property(get = GetPos, put = SetPos) Vector3 Position;
@@ -59,11 +63,16 @@ public:
 	float GetRotate() { return rotate; }
 	void SetRotate(float value) { rotate = value; }
 
+	Color GetColor() { return color; }
+	void SetColor(Color value) { color = value; }
+
+	Texture* GetTexture() { return mainTexture; }
+
 	GAMEOBJECT_STATE GetTag() { return tag; }
 
 	bool GetActive() { return isActive; }
-	void SetActive(bool param) { isActive = param; }
+	void SetActive(bool value) { isActive = value; }
 
 	bool GetDestroy() { return isDestroy; }
-	void SetDestroy(bool param) { isDestroy = param; }
+	void SetDestroy(bool value) { isDestroy = value; }
 };

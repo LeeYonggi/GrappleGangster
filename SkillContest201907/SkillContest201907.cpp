@@ -8,7 +8,6 @@
 
 
 MainProc main;
-float timeScale = 1.0f;
 
 //--------------------------------------------------------------------------------------
 // Rejects any D3D9 devices that aren't acceptable to the app by returning false
@@ -70,6 +69,7 @@ HRESULT CALLBACK OnD3D9ResetDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFA
 //--------------------------------------------------------------------------------------
 void CALLBACK OnFrameMove( double fTime, float fElapsedTime, void* pUserContext )
 {
+	Timer::TimerUpdate(fElapsedTime);
 	main.Update();
 }
 

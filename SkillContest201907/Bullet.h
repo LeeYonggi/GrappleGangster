@@ -1,24 +1,20 @@
 #pragma once
 #include "GameObject.h"
 
-class MotionBlur;
-class Player :
-	public GameObject
+class Bullet
+	: public GameObject
 {
 private:
-	Vector3 moveVector = Vector3(0, 0, 0);
-	MotionBlur* motionBlur = nullptr;
-	float moveSpeed = 0.0f;
+	Timer* timer;
+	Vector3 moveVector;
 
 public:
+	Bullet(Texture* tex, Vector3 dir) : GameObject(tex), moveVector(dir) {}
+
 	// GameObject을(를) 통해 상속됨
 	virtual void Init() override;
 	virtual void Update() override;
 	virtual void Render() override;
 	virtual void Release() override;
-
-public:
-	void PlayerMove();
-	void PlayerAttack();
 };
 

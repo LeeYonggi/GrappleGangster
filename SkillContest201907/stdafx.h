@@ -3,7 +3,7 @@
 
 // define
 #define DEVICE DXUTGetD3D9Device()
-#define ELTime DXUTGetElapsedTime() * timeScale
+#define ELTime DXUTGetElapsedTime() * Timer::GetTimeScale()
 
 using Vector2 = D3DXVECTOR2;
 using Vector3 = D3DXVECTOR3;
@@ -15,15 +15,15 @@ constexpr int SCREEN_Y = 720;
 
 using Object = void*;
 
-extern float timeScale;
-
 
 // 헤더파일
 #include "Singleton.h"
+#include "Utility.h"
 
 #include "EventHandler.h"
 
 #include "TexVertex.h"
+#include "Timer.h"
 
 #include "CameraManager.h"
 #include "RenderManager.h"

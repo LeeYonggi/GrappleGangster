@@ -22,9 +22,10 @@ public:
 
 public:
 	template<typename T>
-	T *AddGameObject(T *obj)
+	T *AddGameObject(T *obj, GameObject::GAMEOBJECT_STATE tag)
 	{
 		obj->Init();
+		obj->tag = tag;
 
 		objList.push_back(obj);
 

@@ -26,6 +26,10 @@ public:
 	bool IsKeyUp(int key)	 { return (nowKey[key] == false && pastKey[key] == true); }
 
 	Vector2 GetMousePos() { return mouse; }
+
+public:
+	float GetHorizontal();
+	float GetVertical();
 };
 
 #define	INPUTMANAGER InputManager::GetInstance()

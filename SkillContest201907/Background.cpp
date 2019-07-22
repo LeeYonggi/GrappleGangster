@@ -4,6 +4,7 @@
 Background::Background()
 {
 	moveSpeed = 1000.0f;
+	pos.z = 10;
 }
 
 Background::~Background()
@@ -25,7 +26,6 @@ void Background::Update()
 
 void Background::Render()
 {
-	pos.z = 10;
 	RENDERMANAGER->DrawTexture(mainTexture, pos, scale);
 	RENDERMANAGER->DrawTexture(mainTexture, pos + Vector3(1280, 0, 0), scale);
 	RENDERMANAGER->DrawTexture(mainTexture, pos + Vector3(1280, 0, 0), scale);
