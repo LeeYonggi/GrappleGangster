@@ -15,6 +15,8 @@ private:
 	Matrix proj;
 	Matrix view;
 
+	float cameraSize = 1.0f;
+
 public:
 	Matrix GetProjection() { return proj; }
 	Matrix GetView() { return view; }

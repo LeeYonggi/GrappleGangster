@@ -11,6 +11,8 @@ private:
 
 	MotionBlur* motion;
 
+	bool isInfluenceBackground = true;
+
 public:
 	Bullet(Texture* tex, Vector3 dir) : GameObject(tex), moveVector(dir) {}
 
@@ -19,5 +21,10 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 	virtual void Release() override;
+
+	void SetInFluenceBackground(bool value) { isInfluenceBackground = value; }
+
+public:
+	static Bullet* MakeRifleBullet(Vector3 pos, Vector3 dir, GAMEOBJECT_STATE state, bool isInfluenceBackground);
 };
 

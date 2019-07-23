@@ -41,5 +41,6 @@ void MainProc::Release()
 	OBJECTMANAGER->ReleaseInstance();
 	SCENEMANAGER->ReleaseInstance();
 	INPUTMANAGER->ReleaseInstance();
+	GAMEMANAGER->ReleaseInstance();
 	Resources->ReleaseInstance();
 }

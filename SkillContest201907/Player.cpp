@@ -68,6 +68,8 @@ void Player::PlayerMove()
 	
 	pos += moveVector * moveSpeed * ELTime;
 
+	if (background->IsGroundCollision(Vector2(pos)) == Background::UNACCESS)
+		cout << 10 << endl;
 	pos.x = min(max(pos.x, -SCREEN_X * 0.5f), SCREEN_X * 0.5f);
 	pos.y = min(max(pos.y, -SCREEN_Y * 0.5f), SCREEN_Y * 0.5f);
 	
@@ -81,18 +83,9 @@ void Player::PlayerAttack()
 		Vector3 dir = ScreenToWorldCamera(INPUTMANAGER->GetMousePos());
 		dir = GetVec3Distance(Vector3(pos.x, pos.y, 0), dir);
 
-		Bullet* bullet = new Bullet(Resources->LoadTexture("Bullet/Player_Bullet.png"),
-			dir * 1000);
-
-		bullet->SetPos(pos);
-
-		OBJECTMANAGER->AddGameObject(bullet, GameObject::PLAYER_BULLET);
-
-		Cartridge* cartridge = new Cartridge(pos, background);
-
-		OBJECTMANAGER->AddGameObject(cartridge, GameObject::EFFECT);
-
+		Bullet::MakeRifleBullet(pos, dir, PLAYER_BULLET, true);
 
 		timer->Reset(1.0f);
 	}
 }
+

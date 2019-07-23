@@ -17,7 +17,7 @@ CameraManager::~CameraManager()
 void CameraManager::SetCamera()
 {
 	D3DXMatrixLookAtLH(&view, &position, &at, &up);
-	D3DXMatrixOrthoLH(&proj, SCREEN_X, SCREEN_Y, 1, 10000.0f);
+	D3DXMatrixOrthoLH(&proj, SCREEN_X * cameraSize, SCREEN_Y * cameraSize, 1, 10000.0f);
 
 	DEVICE->SetTransform(D3DTS_VIEW, &view);
 	DEVICE->SetTransform(D3DTS_PROJECTION, &proj);

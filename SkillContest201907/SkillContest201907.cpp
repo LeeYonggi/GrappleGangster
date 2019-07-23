@@ -47,7 +47,7 @@ HRESULT CALLBACK OnD3D9CreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURF
 #else
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console") 
 #endif
-	//_CrtSetBreakAlloc(7560);
+	//_CrtSetBreakAlloc(508);
 
 	srand(time(NULL));
 

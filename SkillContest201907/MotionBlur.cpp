@@ -22,10 +22,15 @@ void MotionBlur::Update()
 {
 	if (timer->IsEnd)
 	{
-		MotionEffect* effect = new MotionEffect(0.15f, obj->GetTexture(), Vector3(-300, 0, 0.1f));
+		MotionEffect* effect;
+		if(isInfluenceBackground)
+			effect = new MotionEffect(0.15f, obj->GetTexture(), Vector3(-300, 0, 0.1f));
+		else
+			effect = new MotionEffect(0.15f, obj->GetTexture(), Vector3(0, 0, 0.1f));
+
 		Vector3 effectPos = obj->GetPos();
 
-		effectPos.z = 300;
+		effectPos.z = 400;
 		effect->SetPos(effectPos);
 		effect->SetRotate(obj->GetRotate());
 

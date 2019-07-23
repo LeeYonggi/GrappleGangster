@@ -11,6 +11,7 @@ public:
 private:
 	GameObject *obj;
 	Timer* timer;
+	bool isInfluenceBackground = true;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -19,6 +20,8 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
+public:
+	void SetInFluenceBackground(bool value) { isInfluenceBackground = value; }
 
 };
 

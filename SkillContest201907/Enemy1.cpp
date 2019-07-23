@@ -18,7 +18,7 @@ void Enemy1::Init()
 
 	mainTexture = Resources->LoadTexture("Character/Enemy.png");
 
-	moveSpeed = 200.0f;
+	moveSpeed = 500.0f;
 
 	__super::Init();
 }

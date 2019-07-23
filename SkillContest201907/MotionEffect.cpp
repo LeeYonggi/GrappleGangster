@@ -8,7 +8,7 @@ MotionEffect::MotionEffect(float _time, Texture* _texture, Vector3 _moveVector)
 	moveVector = _moveVector;
 
 	timer = Timer::AddTimer(_time);
-	color.a = 0.1f;
+	color.a = 0.15f;
 }
 
 MotionEffect::~MotionEffect()

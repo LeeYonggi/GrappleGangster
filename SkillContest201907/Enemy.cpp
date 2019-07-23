@@ -43,19 +43,14 @@ void Enemy::EnemyStart()
 		enemyState = ENEMY_STATE::ENEMY_MOVE;
 }
 
-class Random
-{
-public:
-	static int Range(int min, int max) { return GetRandomNumberBetween(min, max); }
-};
 
 void Enemy::EnemyMove()
 {
-	sinCount += ELTime * (Random::Range(1, 4));
-	cosCount += ELTime * (Random::Range(1, 4));
+	sinCount += ELTime * (GetRandomNumberBetween(1, 4));
+	cosCount += ELTime * (GetRandomNumberBetween(1, 4));
 
-	pos.x += sin(sinCount) * 0.1f;
-	pos.y += cos(cosCount) * 0.05f;
+	pos.x += sin(sinCount) * 100.f * ELTime;
+	pos.y += GetRandomNumberBetween(-20, 20) * ELTime;
 }
 
 void Enemy::EnemyDie()
