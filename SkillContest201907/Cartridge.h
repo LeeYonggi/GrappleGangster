@@ -1,16 +1,17 @@
 #pragma once
 #include "GameObject.h"
-class Background :
+
+class Background;
+class Cartridge :
 	public GameObject
 {
 public:
-	Background();
-	virtual ~Background();
+	Cartridge(Vector3 spawnPos, Background* _background);
+	virtual ~Cartridge();
 
 private:
-	float moveSpeed = 0.0f;
-	Texture* backTexture = nullptr;
-	Vector3 backPosition = Vector3(0, 0, 0);
+	Vector2 moveVector;
+	Background* background;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -20,6 +21,6 @@ public:
 	virtual void Release() override;
 
 public:
-	float GetMoveSpeed() { return moveSpeed; }
+
 };
 

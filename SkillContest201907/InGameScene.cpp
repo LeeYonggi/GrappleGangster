@@ -7,9 +7,11 @@
 
 void InGameScene::Init()
 {
-	OBJECTMANAGER->AddGameObject(new Player(), GameObject::PLAYER);
 	OBJECTMANAGER->AddGameObject(new Background(), GameObject::BACKGROUND);
-	OBJECTMANAGER->AddGameObject(new Enemy1(), GameObject::ENEMY);
+	
+	GAMEMANAGER->Init();
+
+	OBJECTMANAGER->AddGameObject(new Player(), GameObject::PLAYER);
 }
 
 void InGameScene::Update()

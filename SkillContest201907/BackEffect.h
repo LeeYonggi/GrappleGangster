@@ -1,16 +1,12 @@
 #pragma once
 #include "GameObject.h"
-class Background :
+
+class BackEffect :
 	public GameObject
 {
 public:
-	Background();
-	virtual ~Background();
-
-private:
-	float moveSpeed = 0.0f;
-	Texture* backTexture = nullptr;
-	Vector3 backPosition = Vector3(0, 0, 0);
+	BackEffect(Texture* texture) : GameObject(texture) {}
+	virtual ~BackEffect() { }
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -19,7 +15,5 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-public:
-	float GetMoveSpeed() { return moveSpeed; }
 };
 

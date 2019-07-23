@@ -20,18 +20,6 @@ void MotionBlur::Init()
 
 void MotionBlur::Update()
 {
-	static bool f = false;
-
-	if (INPUTMANAGER->IsKeyDown(VK_SPACE)) f = !f;
-
-	if (f) 
-	{
-		Timer::SetTimeScale(Lerp(Timer::GetTimeScale(), 0.1f, 0.05f)); 
-	}
-	else {
-		Timer::SetTimeScale(Lerp(Timer::GetTimeScale(), 1.0f, 0.05f)); 
-	}
-
 	if (timer->IsEnd)
 	{
 		MotionEffect* effect = new MotionEffect(0.15f, obj->GetTexture(), Vector3(-300, 0, 0.1f));
@@ -39,6 +27,7 @@ void MotionBlur::Update()
 
 		effectPos.z = 300;
 		effect->SetPos(effectPos);
+		effect->SetRotate(obj->GetRotate());
 
 		OBJECTMANAGER->AddGameObject(effect, GameObject::EFFECT);
 		timer->Reset(0.01f);

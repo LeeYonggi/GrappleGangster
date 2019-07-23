@@ -84,6 +84,12 @@
     <Filter Include="Manager\GameManager">
       <UniqueIdentifier>{528bddd7-4106-41fd-b1b2-6f39cb21e897}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Cartridge">
+      <UniqueIdentifier>{28df6fa5-a5f9-4456-a55d-13b47495c060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\BackEffect">
+      <UniqueIdentifier>{0717f911-cb57-48c0-b7c4-f1ace0837532}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -209,6 +215,12 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Manager\GameManager</Filter>
     </ClCompile>
+    <ClCompile Include="Cartridge.cpp">
+      <Filter>GameObject\Cartridge</Filter>
+    </ClCompile>
+    <ClCompile Include="BackEffect.cpp">
+      <Filter>GameObject\BackEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -286,6 +298,12 @@
     </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Manager\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Cartridge.h">
+      <Filter>GameObject\Cartridge</Filter>
+    </ClInclude>
+    <ClInclude Include="BackEffect.h">
+      <Filter>GameObject\BackEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

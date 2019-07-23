@@ -1,9 +1,14 @@
 #include "DXUT.h"
 #include "Bullet.h"
 
+#include "MotionBlur.h"
+
 void Bullet::Init()
 {
 	timer = Timer::AddTimer(3.0f);
+
+	motion = new MotionBlur(this);
+	OBJECTMANAGER->AddGameObject(motion, GameObject::EFFECT);
 }
 
 void Bullet::Update()
@@ -25,4 +30,5 @@ void Bullet::Render()
 void Bullet::Release()
 {
 	Timer::RemoveTimer(timer);
+	motion->SetDestroy(true);
 }

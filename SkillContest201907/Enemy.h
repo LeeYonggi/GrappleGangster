@@ -6,7 +6,7 @@ class Enemy :
 {
 	using EnemyFunc = void(Enemy::*)(void);
 public:
-	Enemy();
+	Enemy(Vector3 spawnPos);
 	virtual ~Enemy();
 
 public:
@@ -14,12 +14,19 @@ public:
 	{
 		ENEMY_START,
 		ENEMY_MOVE,
-		ENEMY_ATTACK
+		ENEMY_DIE
 	};
 
 protected:
 	EnemyFunc enemyFunc[3];
 	ENEMY_STATE enemyState;
+
+	Vector3 moveVector = Vector3(0, 0, 0);
+	Vector3 targetPos = Vector3(0, 0, 0);
+
+	float moveSpeed = 1.0f;
+	float sinCount = 0.0f;
+	float cosCount = 0.0f;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -29,7 +36,8 @@ public:
 	virtual void Release() override;
 
 public:
-	void EnemyRightStart();
+	void EnemyStart();
+	void EnemyMove();
 	void EnemyDie();
 };
 

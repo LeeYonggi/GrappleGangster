@@ -1,7 +1,9 @@
 #pragma once
 #include "GameObject.h"
 
+class Background;
 class MotionBlur;
+class BackEffect;
 class Player :
 	public GameObject
 {
@@ -9,6 +11,9 @@ private:
 	Vector3 moveVector = Vector3(0, 0, 0);
 	MotionBlur* motionBlur = nullptr;
 	Timer* timer = nullptr;
+	Background *background;
+	BackEffect* backEffect;
+
 	float moveSpeed = 0.0f;
 
 public:

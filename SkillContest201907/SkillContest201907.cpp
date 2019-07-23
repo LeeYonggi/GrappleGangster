@@ -5,6 +5,7 @@
 //--------------------------------------------------------------------------------------
 #include "DXUT.h"
 #include "resource.h"
+#include <time.h>
 
 
 MainProc main;
@@ -47,6 +48,8 @@ HRESULT CALLBACK OnD3D9CreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURF
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console") 
 #endif
 	//_CrtSetBreakAlloc(7560);
+
+	srand(time(NULL));
 
 	main.Init();
     return S_OK;
@@ -151,7 +154,7 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     DXUTSetHotkeyHandling( true, true, true );  // handle the default hotkeys
     DXUTSetCursorSettings( true, true ); // Show the cursor and clip it when in full screen
     DXUTCreateWindow( L"SkillContest201907" );
-    DXUTCreateDevice( true, SCREEN_X, SCREEN_Y);
+    DXUTCreateDevice( true, 1280, 720);
 
     // Start the render loop
     DXUTMainLoop();

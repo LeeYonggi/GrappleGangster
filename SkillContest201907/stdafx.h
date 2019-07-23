@@ -10,8 +10,8 @@ using Vector3 = D3DXVECTOR3;
 using Matrix  = D3DXMATRIXA16;
 using Color	  = D3DXCOLOR;
 
-constexpr int SCREEN_X = 1280;
-constexpr int SCREEN_Y = 720;
+constexpr float SCREEN_X = 1280;
+constexpr float SCREEN_Y = 720;
 
 using Object = void*;
 
