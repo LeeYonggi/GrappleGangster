@@ -1145,7 +1145,7 @@ HRESULT WINAPI DXUTCreateWindow( const WCHAR* strWindowTitle, HINSTANCE hInstanc
         wndClass.cbWndExtra = 0;
         wndClass.hInstance = hInstance;
         wndClass.hIcon = hIcon;
-        wndClass.hCursor = LoadCursor( NULL, IDC_ARROW );
+        wndClass.hCursor = NULL;
         wndClass.hbrBackground = ( HBRUSH )GetStockObject( BLACK_BRUSH );
         wndClass.lpszMenuName = NULL;
         wndClass.lpszClassName = L"Direct3DWindowClass";

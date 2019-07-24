@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
+class Ride;
 class Enemy :
 	public GameObject
 {
@@ -23,10 +24,13 @@ protected:
 
 	Vector3 moveVector = Vector3(0, 0, 0);
 	Vector3 targetPos = Vector3(0, 0, 0);
+	Ride* ride = nullptr;
 
 	float moveSpeed = 1.0f;
 	float sinCount = 0.0f;
 	float cosCount = 0.0f;
+
+	int hp = 0;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -39,5 +43,8 @@ public:
 	void EnemyStart();
 	void EnemyMove();
 	void EnemyDie();
+
+public:
+	void EnemyAttaked();
 };
 

@@ -32,6 +32,8 @@ void MainProc::Render()
 	OBJECTMANAGER->Render();
 	
 	SCENEMANAGER->Render();
+
+	INPUTMANAGER->Render();
 }
 
 void MainProc::Release()

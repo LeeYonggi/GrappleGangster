@@ -1,7 +1,9 @@
 #pragma once
 #include "GameObject.h"
 
+#include "MotionBlur.h"
 class MotionBlur;
+enum TARGET_STATE;
 class MotionEffect :
 	public GameObject
 {
@@ -11,6 +13,7 @@ public:
 
 public:
 	Timer* timer = nullptr;
+	TARGET_STATE state = TARGET_STATE::MOTION_MANAGED;
 
 private:
 	Vector3 moveVector = Vector3(0, 0, 0);

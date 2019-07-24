@@ -90,6 +90,12 @@
     <Filter Include="GameObject\BackEffect">
       <UniqueIdentifier>{0717f911-cb57-48c0-b7c4-f1ace0837532}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Ride">
+      <UniqueIdentifier>{8963b66a-ee55-47c0-9c44-2655e550dafd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Gun">
+      <UniqueIdentifier>{2f044f9a-5984-4f02-b0f9-34e85658d995}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -221,6 +227,12 @@
     <ClCompile Include="BackEffect.cpp">
       <Filter>GameObject\BackEffect</Filter>
     </ClCompile>
+    <ClCompile Include="Ride.cpp">
+      <Filter>GameObject\Ride</Filter>
+    </ClCompile>
+    <ClCompile Include="Gun.cpp">
+      <Filter>GameObject\Gun</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -304,6 +316,12 @@
     </ClInclude>
     <ClInclude Include="BackEffect.h">
       <Filter>GameObject\BackEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Ride.h">
+      <Filter>GameObject\Ride</Filter>
+    </ClInclude>
+    <ClInclude Include="Gun.h">
+      <Filter>GameObject\Gun</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

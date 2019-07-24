@@ -15,6 +15,8 @@ Cartridge::Cartridge(Vector3 spawnPos, Background *_background)
 	mainTexture = Resources->LoadTexture("Bullet/Cartridge.png");
 
 	background = _background;
+
+	maxY = GetRandomNumberBetween(0, 60);
 }
 
 Cartridge::~Cartridge()
@@ -28,7 +30,7 @@ void Cartridge::Init()
 
 void Cartridge::Update()
 {
-	if (pos.y < pos.z - SCREEN_Y * 0.5f - 30)
+	if (pos.y < pos.z - SCREEN_Y * 0.5f - maxY)
 	{
 		moveVector = Vector2(-background->GetMoveSpeed(), 0);
 		pos += Vector3(moveVector) * ELTime;

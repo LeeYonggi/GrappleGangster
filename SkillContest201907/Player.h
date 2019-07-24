@@ -4,6 +4,7 @@
 class Background;
 class MotionBlur;
 class BackEffect;
+class Ride;
 class Player :
 	public GameObject
 {
@@ -13,6 +14,7 @@ private:
 	Timer* timer = nullptr;
 	Background *background;
 	BackEffect* backEffect;
+	Ride* ride = nullptr;
 
 	float moveSpeed = 0.0f;
 

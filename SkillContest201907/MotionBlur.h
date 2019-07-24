@@ -1,17 +1,27 @@
 #pragma once
 #include "GameObject.h"
 
+enum TARGET_STATE
+{
+	MOTION_MANAGED,
+	MOTION_PLAYER
+};
+
 class MotionBlur
 	: public GameObject
 {
 public:
-	MotionBlur(GameObject *targetObj);
+	MotionBlur(GameObject *targetObj, TARGET_STATE state);
 	virtual ~MotionBlur();
 
 private:
 	GameObject *obj;
 	Timer* timer;
+
 	bool isInfluenceBackground = true;
+
+private:
+	TARGET_STATE targetState;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -22,6 +32,6 @@ public:
 
 public:
 	void SetInFluenceBackground(bool value) { isInfluenceBackground = value; }
-
+	void SetTargetState(TARGET_STATE value) { targetState = value; }
 };
 

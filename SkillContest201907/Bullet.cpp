@@ -8,10 +8,12 @@ void Bullet::Init()
 {
 	timer = Timer::AddTimer(3.0f);
 
-	motion = new MotionBlur(this);
+	motion = new MotionBlur(this, MOTION_MANAGED);
 	motion->SetInFluenceBackground(false);
 
 	OBJECTMANAGER->AddGameObject(motion, GameObject::EFFECT);
+
+	radius = 5.0f;
 }
 
 void Bullet::Update()

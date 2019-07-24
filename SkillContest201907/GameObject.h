@@ -16,9 +16,10 @@ public:
 	{
 		DEFAULT,
 		BACKGROUND,
-		RIDE,
 		PLAYER,
 		ENEMY,
+		RIDE,
+		GUN,
 		ENEMY_BULLET,
 		PLAYER_BULLET,
 		EFFECT,
@@ -38,6 +39,8 @@ protected:
 
 	bool isActive = true;
 	bool isDestroy = false;
+
+	float radius = 1.0f;
 
 public:
 	virtual void Init() = 0;
@@ -75,4 +78,10 @@ public:
 
 	bool GetDestroy() { return isDestroy; }
 	void SetDestroy(bool value) { isDestroy = value; }
+
+	float GetRadius() { return radius; }
+
+public:
+	static bool IsCircleCollision(Vector3 p1, Vector3 p2, float r1, float r2);
+
 };

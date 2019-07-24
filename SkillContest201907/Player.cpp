@@ -6,15 +6,17 @@
 #include "Cartridge.h"
 #include "Background.h"
 #include "BackEffect.h"
+#include "Ride.h"
 
 
 void Player::Init()
 {
-	mainTexture = Resources->LoadTexture("Character/Bike.png");
-	motionBlur = OBJECTMANAGER->AddGameObject(new MotionBlur(this), GameObject::EFFECT);
+	mainTexture = Resources->LoadTexture("Character/Player/body.png");
+	motionBlur = OBJECTMANAGER->AddGameObject(new MotionBlur(this, MOTION_PLAYER), GameObject::EFFECT);
 	moveSpeed = 350;
-	timer = Timer::AddTimer(1.0f);
+	timer = Timer::AddTimer(0.0f);
 	pos.y = -100;
+
 	background = dynamic_cast<Background*>(*OBJECTMANAGER->FindGameObjectsWithTag(
 		GameObject::BACKGROUND).begin());
 
@@ -23,6 +25,10 @@ void Player::Init()
 	OBJECTMANAGER->AddGameObject(backEffect, GameObject::EFFECT);
 
 	backEffect->SetActive(false);
+
+	ride = new Ride(this, Ride::KOREA_BIKE);
+
+	OBJECTMANAGER->AddGameObject(ride, GameObject::RIDE);
 }
 
 void Player::Update()
@@ -66,10 +72,10 @@ void Player::PlayerMove()
 	if (moveVector.x < 0)
 		moveVector.x = -0.7f;
 	
-	pos += moveVector * moveSpeed * ELTime;
+	Vector3 nextPos = pos + moveVector * moveSpeed * ELTime;
 
-	if (background->IsGroundCollision(Vector2(pos)) == Background::UNACCESS)
-		cout << 10 << endl;
+	if (background->IsGroundCollision(Vector2(nextPos)) == Background::NONE)
+		pos = nextPos;
 	pos.x = min(max(pos.x, -SCREEN_X * 0.5f), SCREEN_X * 0.5f);
 	pos.y = min(max(pos.y, -SCREEN_Y * 0.5f), SCREEN_Y * 0.5f);
 	
@@ -78,14 +84,14 @@ void Player::PlayerMove()
 
 void Player::PlayerAttack()
 {
-	if (INPUTMANAGER->IsKeyDown(VK_LBUTTON) && timer->IsEnd)
+	if (INPUTMANAGER->IsKeyPress(VK_LBUTTON) && timer->IsEnd)
 	{
 		Vector3 dir = ScreenToWorldCamera(INPUTMANAGER->GetMousePos());
 		dir = GetVec3Distance(Vector3(pos.x, pos.y, 0), dir);
 
 		Bullet::MakeRifleBullet(pos, dir, PLAYER_BULLET, true);
 
-		timer->Reset(1.0f);
+		timer->Reset(0.1f);
 	}
 }
 

@@ -5,6 +5,13 @@ InputManager::InputManager()
 {
 	memset(nowKey, false, sizeof(nowKey));
 	memset(pastKey, false, sizeof(pastKey));
+	
+	mouseTexture.push_back(Resources->LoadTexture("UI/Mouse/Mouse1.png"));
+	mouseTexture.push_back(Resources->LoadTexture("UI/Mouse/Mouse2.png"));
+	mouseTexture.push_back(Resources->LoadTexture("UI/Mouse/Mouse3.png"));
+
+	for (int i = 0; i < 3; i++)
+		mouseRotate.push_back(0);
 }
 
 InputManager::~InputManager()
@@ -25,6 +32,15 @@ void InputManager::KeyUpdate()
 
 	mouse.x = point.x;
 	mouse.y = point.y;
+
+	mouseRotate[1] += 100 * ELTime;
+	mouseRotate[2] -= 100 * ELTime;
+}
+
+void InputManager::Render()
+{
+	for (int i = 0; i < mouseTexture.size(); i++)
+		RENDERMANAGER->DrawSprite(mouseTexture[i], Vector3(mouse), {1, 1}, mouseRotate[i]);
 }
 
 float InputManager::GetHorizontal()

@@ -11,6 +11,11 @@ private:
 	bool pastKey[KEY_MAX];
 	Vector2 mouse;
 
+private:
+	vector<Texture*> mouseTexture;
+
+	vector<float> mouseRotate;
+
 public:
 
 public:
@@ -19,6 +24,7 @@ public:
 
 public:
 	void KeyUpdate();
+	void Render();
 
 public:
 	bool IsKeyDown(int key)	 { return (nowKey[key] == true && pastKey[key] == false); }
