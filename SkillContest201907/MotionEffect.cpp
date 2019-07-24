@@ -39,7 +39,7 @@ void MotionEffect::Update()
 		color.a -= 0.6f * ELTime;
 		break;
 	case MOTION_PLAYER:
-		pos += moveVector * ELTime * ((1.0f - Timer::GetTimeScale()) * 5);
+		pos += moveVector * ELTime * ((4.0f - Timer::GetTimeScale() * 3.0f));
 		color.a -= 1.0f * ELTime * Timer::GetTimeScale();
 		color.r -= (1.0f - Timer::GetTimeScale()) * 0.01f;
 		color.g -= (1.0f - Timer::GetTimeScale()) * 0.1f;

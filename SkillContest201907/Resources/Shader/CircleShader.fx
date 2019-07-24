@@ -21,15 +21,11 @@ sampler2D gDiffuseSampler = sampler_state
 	Texture = (gDiffuseTex);
 };
 
-texture gMaskTex
-sampler2D gMaskSampler = sampler_state
-{
-	Texture = (gMaskTex);
-};
 float4x4 gWorldMat;
 float4x4 gViewMat;
 float4x4 gProjMat;
 float4 gColor;
+float gDistance;
 
 VS_OUTPUT vs_main(VS_INPUT input)
 {
@@ -47,8 +43,9 @@ VS_OUTPUT vs_main(VS_INPUT input)
 float4 ps_main(PS_INPUT input) : COLOR
 {
 	float4 albedo = tex2D(gDiffuseSampler, input.mUV);
-	
-	albedo = albedo * gColor;
+
+	if(distance(0.5, input.mUV) < gDistance)
+		albedo.a = 0;
 
 	return albedo;
 }

@@ -19,6 +19,7 @@ private:
 	vector<DWORD> index;
 	LPD3DXSPRITE lpSprite;
 	LPD3DXEFFECT shader;
+	LPD3DXEFFECT multiflyShader;
 	LPD3DXMESH plane;
 
 private:
@@ -31,6 +32,9 @@ public:
 
 	void DrawTexture(Texture* texture, Vector3 position, Vector2 scale = {1, 1}, 
 		float rotation = 0.0f, Color color = Color(1, 1, 1, 1));
+
+	void DrawCircleTexture(Texture* mainTexture, float distance, Vector3 position, 
+		Vector2 scale = {1, 1}, float rotation = 0.0f, Color color = Color(1, 1, 1, 1));
 };
 
 #define RENDERMANAGER RenderManager::GetInstance()

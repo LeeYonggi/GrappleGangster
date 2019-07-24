@@ -7,6 +7,7 @@ RenderManager::RenderManager()
 	CreatePlane();
 	CreateSprite();
 	shader = Resources->LoadShader("Shader/DefaultShader.fx");
+	multiflyShader = Resources->LoadShader("Shader/CircleShader.fx");
 }
 
 
@@ -116,26 +117,16 @@ void RenderManager::DrawTexture(Texture* texture, Vector3 position, Vector2 scal
 
 	matW = matS * matR * matT;
 
-	D3DMATERIAL9 mtl;
-	mtl.Ambient = mtl.Diffuse = mtl.Specular = mtl.Emissive = D3DXCOLOR(1, 1, 1, 1);
-
-	D3DXHANDLE worldHandle, viewHandle, projHandle, textureHandle, colorHandle;
-	worldHandle = shader->GetParameterByName(0, "gWorldMat");
-	viewHandle = shader->GetParameterByName(0, "gViewMat");
-	projHandle = shader->GetParameterByName(0, "gProjMat");
-	textureHandle = shader->GetParameterByName(0, "gDiffuseTex");
-	colorHandle = shader->GetParameterByName(0, "gColor");
-
 	Matrix viewMat, projMat;
 	viewMat = CAMERAMANAGER->GetView();
 	projMat = CAMERAMANAGER->GetProjection();
 
-	shader->SetMatrix(worldHandle, &matW);
-	shader->SetMatrix(viewHandle, &viewMat);
-	shader->SetMatrix(projHandle, &projMat);
-	shader->SetVector(colorHandle, &D3DXVECTOR4(color.r, color.g, color.b, color.a));
+	shader->SetMatrix(D3DXHANDLE("gWorldMat"), &matW);
+	shader->SetMatrix(D3DXHANDLE("gViewMat"), &viewMat);
+	shader->SetMatrix(D3DXHANDLE("gProjMat"), &projMat);
+	shader->SetVector(D3DXHANDLE("gColor"), &D3DXVECTOR4(color.r, color.g, color.b, color.a));
 
-	shader->SetTexture(textureHandle, texture->tex);
+	shader->SetTexture(D3DXHANDLE("gDiffuseTex"), texture->tex);
 
 	UINT numPasses = 0;
 	shader->Begin(&numPasses, NULL);
@@ -145,4 +136,39 @@ void RenderManager::DrawTexture(Texture* texture, Vector3 position, Vector2 scal
 	shader->EndPass();
 	
 	shader->End();
+}
+
+void RenderManager::DrawCircleTexture(Texture* mainTexture, float distance,
+	Vector3 position, Vector2 scale, float rotation, Color color)
+{
+	Matrix matW, matT, matR, matS;
+
+	D3DXMatrixTranslation(&matT, position.x, position.y, position.z);
+	D3DXMatrixRotationZ(&matR, D3DXToRadian(rotation));
+	D3DXMatrixScaling(&matS, scale.x * mainTexture->info.Width * 0.5f,
+		scale.y * mainTexture->info.Height * 0.5f, 1);
+
+	matW = matS * matR * matT;
+
+
+	Matrix viewMat, projMat;
+	viewMat = CAMERAMANAGER->GetView();
+	projMat = CAMERAMANAGER->GetProjection();
+
+	multiflyShader->SetMatrix(D3DXHANDLE("gWorldMat"), &matW);
+	multiflyShader->SetMatrix(D3DXHANDLE("gViewMat"), &viewMat);
+	multiflyShader->SetMatrix(D3DXHANDLE("gProjMat"), &projMat);
+	multiflyShader->SetVector(D3DXHANDLE("gColor"), &D3DXVECTOR4(color.r, color.g, color.b, color.a));
+	multiflyShader->SetFloat(D3DXHANDLE("gDistance"), 0.1f);
+
+	multiflyShader->SetTexture(D3DXHANDLE("gDiffuseTex"), mainTexture->tex);
+
+	UINT numPasses = 0;
+	multiflyShader->Begin(&numPasses, NULL);
+
+	multiflyShader->BeginPass(0);
+	plane->DrawSubset(0);
+	multiflyShader->EndPass();
+
+	multiflyShader->End();
 }

@@ -11,21 +11,25 @@
 
 void Player::Init()
 {
+	// 기본 이니셜라이즈
 	mainTexture = Resources->LoadTexture("Character/Player/body.png");
 	motionBlur = OBJECTMANAGER->AddGameObject(new MotionBlur(this, MOTION_PLAYER), GameObject::EFFECT);
 	moveSpeed = 350;
 	timer = Timer::AddTimer(0.0f);
 	pos.y = -100;
 
+	// 뒷배경
 	background = dynamic_cast<Background*>(*OBJECTMANAGER->FindGameObjectsWithTag(
 		GameObject::BACKGROUND).begin());
 
-	backEffect = new BackEffect(Resources->LoadTexture("Effect/BackEffect.png"));
+	// 화면 뒤 이펙트
+	backEffect = new BackEffect();
 
 	OBJECTMANAGER->AddGameObject(backEffect, GameObject::EFFECT);
 
 	backEffect->SetActive(false);
 
+	// 오도방구
 	ride = new Ride(this, Ride::KOREA_BIKE);
 
 	OBJECTMANAGER->AddGameObject(ride, GameObject::RIDE);
