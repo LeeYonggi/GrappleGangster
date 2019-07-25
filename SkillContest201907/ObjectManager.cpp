@@ -49,6 +49,8 @@ void ObjectManager::Update()
 
 bool compare(GameObject *obj1, GameObject *obj2)
 {
+	if (obj1->GetTag() == GameObject::GUN || obj2->GetTag() == GameObject::GUN)
+		int a = 10;
 	if (obj1->GetPos().z > obj2->GetPos().z)
 		return true;
 	if (obj1->GetPos().z == obj2->GetPos().z)

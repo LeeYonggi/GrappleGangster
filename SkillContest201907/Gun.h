@@ -4,8 +4,11 @@ class Gun :
 	public GameObject
 {
 public:
-	Gun(Texture *texture) : GameObject(texture) { }
+	Gun(Texture *texture, Timer *_timer) : GameObject(texture), timer(_timer) { }
 	virtual ~Gun() { }
+
+public:
+	Timer* timer = nullptr;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -13,5 +16,8 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 	virtual void Release() override;
+
+public:
+	void GunControll(Vector3 pos, Vector2 target);
 };
 

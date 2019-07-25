@@ -26,23 +26,18 @@ void Ride::Init()
 	{
 	case Ride::KOREA_BIKE:
 		mainTexture = Resources->LoadTexture("Ride/Korea/Bike.png");
-		gun = new Gun(Resources->LoadTexture("Gun/HandGun.png"));
-
 		break;
 	case Ride::JAPAN_BIKE1:
 		mainTexture = Resources->LoadTexture("Ride/Japan/Bike1.png");
-		gun = new Gun(Resources->LoadTexture("Gun/HandGun.png"));
 		break;
 	case Ride::JAPAN_BIKE2:
 		mainTexture = Resources->LoadTexture("Ride/Japan/Bike2.png");
-		gun = new Gun(Resources->LoadTexture("Gun/RifleGun.png"));
 		break;
 	default:
 		break;
 	}
 
 	OBJECTMANAGER->AddGameObject(motion, GameObject::EFFECT);
-	OBJECTMANAGER->AddGameObject(gun, GameObject::GUN);
 }
 
 void Ride::Update()
@@ -51,7 +46,7 @@ void Ride::Update()
 	{
 		Vector3 riderPos = rider->GetPos();
 
-		pos = riderPos + Vector3(0, 0, -1);
+		pos = riderPos;
 		
 		motion->SetActive(true);
 
@@ -62,11 +57,10 @@ void Ride::Update()
 	}
 	else
 	{
-		moveVector = Vector3(-background->GetMoveSpeed(), 0, 0);
+		moveVector = Vector3(-background->GetMoveSpeed() * 0.5f, 0, 0);
 		motion->SetActive(false);
 		pos += moveVector * ELTime;
 	}
-	gun->SetPos(pos + Vector3(0, 0, -1));
 }
 
 void Ride::Render()
@@ -77,4 +71,27 @@ void Ride::Render()
 void Ride::Release()
 {
 	motion->SetDestroy(true);
+}
+
+Gun* Ride::CreateGun()
+{
+	Gun* gun = nullptr;
+
+	switch (state)
+	{
+	case Ride::KOREA_BIKE:
+		gun = new Gun(Resources->LoadTexture("Gun/HandGun.png"), Timer::AddTimer(0.7f));
+		break;
+	case Ride::JAPAN_BIKE1:
+		gun = new Gun(Resources->LoadTexture("Gun/HandGun.png"), Timer::AddTimer(0.7f));
+		break;
+	case Ride::JAPAN_BIKE2:
+		gun = new Gun(Resources->LoadTexture("Gun/RifleGun.png"), Timer::AddTimer(0.2f));
+		break;
+	default:
+		break;
+	}
+
+	OBJECTMANAGER->AddGameObject(gun, GameObject::GUN);
+	return gun;
 }

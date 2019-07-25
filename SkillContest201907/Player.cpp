@@ -7,6 +7,7 @@
 #include "Background.h"
 #include "BackEffect.h"
 #include "Ride.h"
+#include "Gun.h"
 
 
 void Player::Init()
@@ -15,8 +16,8 @@ void Player::Init()
 	mainTexture = Resources->LoadTexture("Character/Player/body.png");
 	motionBlur = OBJECTMANAGER->AddGameObject(new MotionBlur(this, MOTION_PLAYER), GameObject::EFFECT);
 	moveSpeed = 350;
-	timer = Timer::AddTimer(0.0f);
 	pos.y = -100;
+	fireDelay = 0.7f;
 
 	// µÞ¹è°æ
 	background = dynamic_cast<Background*>(*OBJECTMANAGER->FindGameObjectsWithTag(
@@ -33,6 +34,11 @@ void Player::Init()
 	ride = new Ride(this, Ride::KOREA_BIKE);
 
 	OBJECTMANAGER->AddGameObject(ride, GameObject::RIDE);
+
+	// ÃÑ
+	gun.push_back(ride->CreateGun());
+
+	nowGun = 0;
 }
 
 void Player::Update()
@@ -42,7 +48,7 @@ void Player::Update()
 
 	static bool f = false;
 
-	if (INPUTMANAGER->IsKeyDown(VK_SPACE)) f = !f;
+	/*if (INPUTMANAGER->IsKeyDown(VK_SPACE)) f = !f;
 
 	if (f)
 	{
@@ -54,7 +60,7 @@ void Player::Update()
 		Timer::SetTimeScale(Lerp(Timer::GetTimeScale(), 1.0f, 0.05f));
 
 		backEffect->SetActive(false);
-	}
+	}*/
 }
 
 void Player::Render()
@@ -65,7 +71,7 @@ void Player::Render()
 void Player::Release()
 {
 	motionBlur->SetDestroy(true);
-	Timer::RemoveTimer(timer);
+	gun.clear();
 }
 
 void Player::PlayerMove()
@@ -88,14 +94,17 @@ void Player::PlayerMove()
 
 void Player::PlayerAttack()
 {
-	if (INPUTMANAGER->IsKeyPress(VK_LBUTTON) && timer->IsEnd)
+	gun[nowGun]->GunControll(pos, Vector2(ScreenToWorldCamera(INPUTMANAGER->GetMousePos())));
+
+	bool isKey = (INPUTMANAGER->IsKeyPress(VK_LBUTTON) || INPUTMANAGER->IsKeyDown(VK_LBUTTON));
+	if (isKey && gun[nowGun]->timer->IsEnd)
 	{
 		Vector3 dir = ScreenToWorldCamera(INPUTMANAGER->GetMousePos());
 		dir = GetVec3Distance(Vector3(pos.x, pos.y, 0), dir);
 
 		Bullet::MakeRifleBullet(pos, dir, PLAYER_BULLET, true);
 
-		timer->Reset(0.1f);
+		gun[nowGun]->timer->Reset(fireDelay);
 	}
 }
 

@@ -17,12 +17,16 @@ private:
 
 	float cameraSize = 1.0f;
 
+	Timer* timeStop;
+
 public:
 	Matrix GetProjection() { return proj; }
 	Matrix GetView() { return view; }
 
 public:
+	void Update();
 	void SetCamera();
+	void OneStopCamera();
 };
 
 #define CAMERAMANAGER CameraManager::GetInstance()

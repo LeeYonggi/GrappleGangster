@@ -15,6 +15,7 @@ private:
 
 public:
 	Texture* LoadTexture(string path);
+	vector<Texture*> LoadTextures(string path, int low, int high);
 
 	LPD3DXEFFECT LoadShader(string path);
 

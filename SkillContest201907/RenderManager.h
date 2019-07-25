@@ -21,9 +21,10 @@ private:
 	LPD3DXEFFECT shader;
 	LPD3DXEFFECT multiflyShader;
 	LPD3DXMESH plane;
+	LPD3DXMESH flipPlane;
 
 private:
-	void CreatePlane();
+	LPD3DXMESH CreatePlane();
 	void CreateSprite();
 
 public:
@@ -31,7 +32,7 @@ public:
 		float rotation = 0.0f, Color color = Color(1, 1, 1, 1));
 
 	void DrawTexture(Texture* texture, Vector3 position, Vector2 scale = {1, 1}, 
-		float rotation = 0.0f, Color color = Color(1, 1, 1, 1));
+		float rotation = 0.0f, Color color = Color(1, 1, 1, 1), bool flip = false);
 
 	void DrawCircleTexture(Texture* mainTexture, float distance, Vector3 position, 
 		Vector2 scale = {1, 1}, float rotation = 0.0f, Color color = Color(1, 1, 1, 1));

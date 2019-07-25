@@ -4,7 +4,7 @@ class Enemy1 :
 	public Enemy
 {
 public:
-	Enemy1(Vector3 _targetPos, Vector3 spawnPos);
+	Enemy1(Vector3 _targetPos, Vector3 spawnPos, Player *player);
 	virtual ~Enemy1();
 
 public:

@@ -24,8 +24,6 @@ private:
 	GameObject *rider = nullptr;
 	RIDE_STATE state;
 
-	Gun* gun = nullptr;
-
 	MotionBlur* motion = nullptr;
 	Background* background = nullptr;
 
@@ -40,6 +38,6 @@ public:
 
 public:
 	void SetRider(GameObject *value) { rider = value; }
-
+	Gun* CreateGun();
 };
 

@@ -39,6 +39,7 @@ protected:
 
 	bool isActive = true;
 	bool isDestroy = false;
+	bool isFlip = false;
 
 	float radius = 1.0f;
 
@@ -78,6 +79,9 @@ public:
 
 	bool GetDestroy() { return isDestroy; }
 	void SetDestroy(bool value) { isDestroy = value; }
+
+	bool GetFlip() { return isFlip; }
+	void SetFlip(bool value) { isFlip = value; }
 
 	float GetRadius() { return radius; }
 

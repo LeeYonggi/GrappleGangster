@@ -4,7 +4,22 @@
 
 RenderManager::RenderManager()
 {
-	CreatePlane();
+	float size = 1.0f;
+
+	vertex.push_back(TexVertex(Vector3(size, size, 0), Vector3(0, 0, -1), Vector2(1.f, 0.f)));
+	vertex.push_back(TexVertex(Vector3(size, -size, 0), Vector3(0, 0, -1), Vector2(1.f, 1.f)));
+	vertex.push_back(TexVertex(Vector3(-size, -size, 0), Vector3(0, 0, -1), Vector2(0.f, 1.f)));
+	vertex.push_back(TexVertex(Vector3(-size, size, 0), Vector3(0, 0, -1), Vector2(0.f, 0.f)));
+
+	plane = CreatePlane();
+
+	vertex.push_back(TexVertex(Vector3(size, size, 0), Vector3(0, 0, -1), Vector2(1.f, 1.f)));
+	vertex.push_back(TexVertex(Vector3(size, -size, 0), Vector3(0, 0, -1), Vector2(1.f, 0.f)));
+	vertex.push_back(TexVertex(Vector3(-size, -size, 0), Vector3(0, 0, -1), Vector2(0.f, 0.f)));
+	vertex.push_back(TexVertex(Vector3(-size, size, 0), Vector3(0, 0, -1), Vector2(0.f, 1.f)));
+
+	flipPlane = CreatePlane();
+
 	CreateSprite();
 	shader = Resources->LoadShader("Shader/DefaultShader.fx");
 	multiflyShader = Resources->LoadShader("Shader/CircleShader.fx");
@@ -14,19 +29,13 @@ RenderManager::RenderManager()
 RenderManager::~RenderManager()
 {
 	SAFE_RELEASE(plane);
+	SAFE_RELEASE(flipPlane);
 	SAFE_RELEASE(lpSprite);
 }
 
-void RenderManager::CreatePlane()
+LPD3DXMESH RenderManager::CreatePlane()
 {
-	float size = 1.0f;
-
-	vertex.reserve(6);
-
-	vertex.push_back(TexVertex(Vector3(size, size, 0), Vector3(0, 0, -1), Vector2(1.f, 0.f)));
-	vertex.push_back(TexVertex(Vector3(size, -size, 0), Vector3(0, 0, -1), Vector2(1.f, 1.f)));
-	vertex.push_back(TexVertex(Vector3(-size, -size, 0), Vector3(0, 0, -1), Vector2(0.f, 1.f)));
-	vertex.push_back(TexVertex(Vector3(-size, size, 0), Vector3(0, 0, -1), Vector2(0.f, 0.f)));
+	LPD3DXMESH temp = nullptr;
 
 	index.reserve(6);
 
@@ -43,25 +52,25 @@ void RenderManager::CreatePlane()
 		D3DXMESH_MANAGED | D3DXMESH_32BIT, 
 		TexVertex::FVF, 
 		DEVICE, 
-		&plane);
+		&temp);
 
 	TexVertex *v = nullptr;
 
-	plane->LockVertexBuffer(0, (void**)&v);
+	temp->LockVertexBuffer(0, (void**)&v);
 
 	memcpy(v, &vertex[0], sizeof(TexVertex) * vertex.size());
 
-	plane->UnlockVertexBuffer();
+	temp->UnlockVertexBuffer();
 
 	vertex.clear();
 
 	DWORD* indices = nullptr;
 
-	plane->LockIndexBuffer(0, (void**)&indices);
+	temp->LockIndexBuffer(0, (void**)&indices);
 
 	memcpy(indices, &index[0], sizeof(DWORD) * index.size());
 
-	plane->UnlockIndexBuffer();
+	temp->UnlockIndexBuffer();
 
 	index.clear();
 
@@ -70,13 +79,15 @@ void RenderManager::CreatePlane()
 	vector<DWORD> attr;
 	attr.push_back(0);
 
-	plane->LockAttributeBuffer(0, &attribute);
+	temp->LockAttributeBuffer(0, &attribute);
 
 	memcpy(attribute, &attr[0], sizeof(DWORD) * attr.size());
 	
-	plane->UnlockAttributeBuffer();
+	temp->UnlockAttributeBuffer();
 
 	attr.clear();
+
+	return temp;
 }
 
 void RenderManager::CreateSprite()
@@ -106,7 +117,7 @@ void RenderManager::DrawSprite(Texture* texture, Vector3 position, Vector2 scale
 	lpSprite->End();
 }
 
-void RenderManager::DrawTexture(Texture* texture, Vector3 position, Vector2 scale, float rotation, Color color)
+void RenderManager::DrawTexture(Texture* texture, Vector3 position, Vector2 scale, float rotation, Color color, bool flip)
 {
 	Matrix matW, matT, matR, matS;
 
@@ -132,7 +143,10 @@ void RenderManager::DrawTexture(Texture* texture, Vector3 position, Vector2 scal
 	shader->Begin(&numPasses, NULL);
 	
 	shader->BeginPass(0);
-	plane->DrawSubset(0);
+	if (flip)
+		flipPlane->DrawSubset(0);
+	else
+		plane->DrawSubset(0);
 	shader->EndPass();
 	
 	shader->End();
@@ -159,7 +173,7 @@ void RenderManager::DrawCircleTexture(Texture* mainTexture, float distance,
 	multiflyShader->SetMatrix(D3DXHANDLE("gViewMat"), &viewMat);
 	multiflyShader->SetMatrix(D3DXHANDLE("gProjMat"), &projMat);
 	multiflyShader->SetVector(D3DXHANDLE("gColor"), &D3DXVECTOR4(color.r, color.g, color.b, color.a));
-	multiflyShader->SetFloat(D3DXHANDLE("gDistance"), 0.1f);
+	multiflyShader->SetFloat(D3DXHANDLE("gDistance"), distance);
 
 	multiflyShader->SetTexture(D3DXHANDLE("gDiffuseTex"), mainTexture->tex);
 

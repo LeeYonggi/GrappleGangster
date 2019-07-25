@@ -10,8 +10,6 @@ void InGameScene::Init()
 	OBJECTMANAGER->AddGameObject(new Background(), GameObject::BACKGROUND);
 	
 	GAMEMANAGER->Init();
-
-	OBJECTMANAGER->AddGameObject(new Player(), GameObject::PLAYER);
 }
 
 void InGameScene::Update()

@@ -36,6 +36,21 @@ Texture* ResourceManager::LoadTexture(string path)
 	return temp;
 }
 
+vector<Texture*> ResourceManager::LoadTextures(string path, int low, int high)
+{
+	vector<Texture*> temp;
+
+	for (int i = low; i <= high; i++)
+	{
+		CHAR ctr[128];
+
+		sprintf(ctr, path.c_str(), i);
+		temp.push_back(LoadTexture(ctr));
+	}
+
+	return temp;
+}
+
 LPD3DXEFFECT ResourceManager::LoadShader(string path)
 {
 	auto iter = m_Shader.find(path);

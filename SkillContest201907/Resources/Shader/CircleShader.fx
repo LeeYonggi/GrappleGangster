@@ -45,7 +45,11 @@ float4 ps_main(PS_INPUT input) : COLOR
 	float4 albedo = tex2D(gDiffuseSampler, input.mUV);
 
 	if(distance(0.5, input.mUV) < gDistance)
-		albedo.a = 0;
+	{
+		albedo.a = 0.5;
+		albedo.b = 0.5;
+		albedo.r = 0.5;
+	}
 
 	return albedo;
 }

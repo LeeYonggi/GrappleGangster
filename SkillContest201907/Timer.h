@@ -31,6 +31,7 @@ public:
 	__declspec(property(get = GetPause)) bool IsPause;
 	__declspec(property(get = GetIsInfluenceOfTimeScale, put = SetIsInfluenceOfTimeScale)) bool IsInfluence;
 
+	float GetAnyTime() { return anyTime; }
 	//STATIC FIELD
 
 private:

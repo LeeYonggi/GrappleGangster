@@ -18,6 +18,8 @@ void MainProc::Init()
 
 void MainProc::Update()
 {
+	CAMERAMANAGER->Update();
+
 	OBJECTMANAGER->Update();
 
 	SCENEMANAGER->Update();
