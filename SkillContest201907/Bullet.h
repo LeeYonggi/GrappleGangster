@@ -25,8 +25,5 @@ public:
 public:
 	void SetInFluenceBackground(bool value) { isInfluenceBackground = value; }
 	Vector3 GetMoveVector() { return moveVector; }
-
-public:
-	static Bullet* MakeRifleBullet(Vector3 pos, Vector3 dir, GAMEOBJECT_STATE state, bool isInfluenceBackground);
 };
 

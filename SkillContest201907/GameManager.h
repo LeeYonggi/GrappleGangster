@@ -9,8 +9,9 @@ public:
 	GameManager();
 	virtual ~GameManager();
 
-private:
+public:
 	int enemyCount = 0;
+	int wave = 0;
 
 public:
 	void Init();
@@ -18,6 +19,9 @@ public:
 	void Render();
 	void Release();
 
+public:
+	void CreateEnemy1();
+	void CreateEnemy2();
 };
 
 #define GAMEMANAGER GameManager::GetInstance()

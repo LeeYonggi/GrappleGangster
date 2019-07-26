@@ -40,7 +40,7 @@ void InputManager::KeyUpdate()
 void InputManager::Render()
 {
 	for (int i = 0; i < mouseTexture.size(); i++)
-		RENDERMANAGER->DrawSprite(mouseTexture[i], Vector3(mouse), {1, 1}, mouseRotate[i]);
+		RENDERMANAGER->DrawSprite(mouseTexture[i], Vector3(mouse), { 1, 1 }, { 1, 1 }, mouseRotate[i]);
 }
 
 float InputManager::GetHorizontal()

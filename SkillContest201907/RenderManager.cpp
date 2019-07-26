@@ -96,13 +96,14 @@ void RenderManager::CreateSprite()
 }
 
 
-void RenderManager::DrawSprite(Texture* texture, Vector3 position, Vector2 scale, float rotation, Color color)
+void RenderManager::DrawSprite(Texture* texture, Vector3 position, Vector2 scale, 
+	Vector2 length, float rotation, Color color)
 {
 	Matrix matW, matT, matR, matS;
 
 	D3DXMatrixScaling(&matS, scale.x, scale.y, 1);
 	D3DXMatrixRotationZ(&matR, D3DXToRadian(rotation));
-	D3DXMatrixTranslation(&matT, position.x, position.y, position.z);
+	D3DXMatrixTranslation(&matT, position.x, position.y, 0);
 
 	matW = matS * matR * matT;
 
@@ -110,9 +111,16 @@ void RenderManager::DrawSprite(Texture* texture, Vector3 position, Vector2 scale
 
 	Vector3 center = { texture->info.Width * 0.5f, texture->info.Height * 0.5f, 0 };
 
+	RECT re = 
+	{	
+		0, 0,
+		UINT(texture->info.Width * length.x),
+		UINT(texture->info.Height * length.y)
+	};
+
 	lpSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-	lpSprite->Draw(texture->tex, nullptr, &center, nullptr, color);
+	lpSprite->Draw(texture->tex, &re, &center, nullptr, color);
 
 	lpSprite->End();
 }

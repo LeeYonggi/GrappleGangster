@@ -18,6 +18,7 @@ private:
 	Timer* jumpTimer = nullptr;
 	vector<Texture*> jumpAnime;
 	Vector3 velocity;
+	GameUI* reload = nullptr;
 
 	float moveSpeed = 0.0f;
 	float fireDelay = 0.7f;
@@ -25,6 +26,7 @@ private:
 	int nowGun = 0;
 	bool isRideOn = true;
 
+public:
 	vector<Gun*> gun;
 
 public:
@@ -55,6 +57,7 @@ public:
 	void PlayerTimeStop();
 	void PlayerJump();
 	void PlayerJumpUpdate();
+	void PlayerGun();
 
 
 public:

@@ -14,12 +14,15 @@ void InGameScene::Init()
 
 void InGameScene::Update()
 {
+	GAMEMANAGER->Update();
 }
 
 void InGameScene::Render()
 {
+	GAMEMANAGER->Render();
 }
 
 void InGameScene::Release()
 {
+	GAMEMANAGER->Release();
 }

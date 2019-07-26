@@ -13,7 +13,7 @@ ObjectManager::~ObjectManager()
 
 void ObjectManager::Init()
 {
-	for (int i = 0; i < GameObject::GAMEOBJECT_STATE::UI; i++)
+	for (int i = 0; i <= GameObject::GAMEOBJECT_STATE::UI; i++)
 		objTagMap.insert(make_pair((GameObject::GAMEOBJECT_STATE)i, list<GameObject*>()));
 }
 
@@ -68,6 +68,11 @@ void ObjectManager::Render()
 	{
 		if ((*iter)->GetActive())
 			(*iter)->Render();
+	}
+	for (auto iter : uiList)
+	{
+		if (iter->GetActive())
+			iter->Render();
 	}
 }
 

@@ -13,12 +13,22 @@ Enemy::Enemy(Vector3 spawnPos, Player* _player, Texture* _dieTexture)
 	pos = spawnPos;
 	player = _player;
 	dieTexture = _dieTexture;
+	
 	background = dynamic_cast<Background*>(*OBJECTMANAGER->FindGameObjectsWithTag(
 		GameObject::BACKGROUND).begin());
+
+	attackTimer = Timer::AddTimer(2.0f);
+
+	warringUI = new GameUI(0.6f, Resources->LoadTextures("UI/danger_effect/%d.png", 1, 5));
+
+	OBJECTMANAGER->AddGameObject(warringUI, GameObject::UI);
+
+	GAMEMANAGER->enemyCount += 1;
 }
 
 Enemy::~Enemy()
 {
+	Timer::RemoveTimer(attackTimer);
 }
 
 void Enemy::Init()
@@ -29,12 +39,13 @@ void Enemy::Update()
 {
 	(this->*enemyFunc[enemyState])();
 	
-	if (enemyState != ENEMY_STATE::ENEMY_DIE)
-	{
-		pos.z = FixZToY(pos.y);
-		gun->GunControll(pos, Vector2(player->GetPos()));
-		EnemyAttaked();
-	}
+	EnemyWarring();
+
+	if (enemyState == ENEMY_STATE::ENEMY_DIE) return;
+	EnemyAttaked();
+	
+	pos.z = FixZToY(pos.y);
+	gun->GunControll(pos, Vector2(player->GetPos()));
 }
 
 void Enemy::Render()
@@ -66,6 +77,7 @@ void Enemy::EnemyMove()
 	pos.y += GetRandomNumberBetween(-20, 20) * ELTime;
 }
 
+
 void Enemy::EnemyDie()
 {
 	mainTexture = dieTexture;
@@ -91,15 +103,36 @@ void Enemy::EnemyDie()
 	}
 }
 
+void Enemy::EnemyWarring()
+{
+	if (warringUI)
+	{
+		Vector2 ePos = WorldCameraToScreen(pos);
+		if(ePos.x > 1280)
+			warringUI->SetPos(Vector3(1230, ePos.y, 0));
+		else if (ePos.x < 0)
+		{
+			warringUI->SetPos(Vector3(50, ePos.y, 0));
+			warringUI->SetScale({-1, 1});
+		}
+		else
+		{
+			warringUI->SetDestroy(true);
+			warringUI = nullptr;
+		}
+	}
+}
+
 void Enemy::EnemyAttaked()
 {
 	auto& bullets = OBJECTMANAGER->FindGameObjectsWithTag(GameObject::PLAYER_BULLET);
 
 	for (auto* iter : bullets)
 	{
-		Vector3 dis = Vector3(0, 10, 25);
+		Vector3 dis = Vector3(pos.x, pos.y + 25, 0);
+		dis.z = FixZToY(dis.y);
 
-		bool isHit = GameObject::IsCircleCollision(iter->GetPos(), pos + dis, iter->GetRadius(), radius);
+		bool isHit = GameObject::IsCircleCollision(iter->GetPos(), dis, 1, radius);
 
 		if (!isHit) continue;
 
@@ -131,6 +164,8 @@ bool Enemy::CharacterDie(Vector3 moveVec3)
 	dieVec3 *= 300;
 	dieVec3.y += 400;
 	gun->SetDestroy(true);
+
+	GAMEMANAGER->enemyCount -= 1;
 
 	return true;
 }

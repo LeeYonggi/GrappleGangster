@@ -9,6 +9,8 @@ _Ty Lerp(_Ty start, _Ty end, float d)
 
 Vector3 ScreenToWorldCamera(Vector2 pos);
 
+Vector2 WorldCameraToScreen(Vector3 pos);
+
 Vector3 GetVec3Distance(const Vector3& p1, const Vector3& p2);
 
 float GetVec2ToDegree(const Vector2& p1, const Vector2& p2);

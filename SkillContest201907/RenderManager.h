@@ -29,7 +29,7 @@ private:
 
 public:
 	void DrawSprite(Texture* texture, Vector3 position, Vector2 scale = {1, 1},
-		float rotation = 0.0f, Color color = Color(1, 1, 1, 1));
+		Vector2 length = {1, 1}, float rotation = 0.0f, Color color = Color(1, 1, 1, 1));
 
 	void DrawTexture(Texture* texture, Vector3 position, Vector2 scale = {1, 1}, 
 		float rotation = 0.0f, Color color = Color(1, 1, 1, 1), bool flip = false);

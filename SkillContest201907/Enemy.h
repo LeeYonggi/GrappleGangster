@@ -32,6 +32,8 @@ protected:
 	Player* player;
 	Texture* dieTexture = nullptr;
 	Background* background = nullptr;
+	Timer* attackTimer = nullptr;
+	GameUI* warringUI = nullptr;
 
 	float moveSpeed = 1.0f;
 	float sinCount = 0.0f;
@@ -53,6 +55,7 @@ public:
 	void EnemyStart();
 	void EnemyMove();
 	void EnemyDie();
+	void EnemyWarring();
 
 public:
 	void EnemyAttaked();

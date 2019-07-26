@@ -394,8 +394,11 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemy1.cpp" />
+    <ClCompile Include="Enemy2.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameUI.cpp" />
     <ClCompile Include="Gun.cpp" />
+    <ClCompile Include="InGameUI.cpp" />
     <ClCompile Include="Ride.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Utility.cpp" />
@@ -408,11 +411,14 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemy1.h" />
+    <ClInclude Include="Enemy2.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameUI.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="InGameScene.h" />
+    <ClInclude Include="InGameUI.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MotionBlur.h" />
     <ClInclude Include="MotionEffect.h" />

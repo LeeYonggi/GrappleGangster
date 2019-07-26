@@ -22,7 +22,7 @@ void Bullet::Update()
 	rotate = GetVec2ToDegree(Vector2(pos), Vector2(pos) + Vector2(moveVector));
 
 	if (isInfluenceBackground)
-		pos.z = pos.y + SCREEN_Y * 0.5f;
+		pos.z = FixZToY(pos.y);
 	if (timer->IsEnd)
 	{
 		SetDestroy(true);
@@ -40,23 +40,3 @@ void Bullet::Release()
 	motion->SetDestroy(true);
 }
 
-Bullet* Bullet::MakeRifleBullet(Vector3 pos, Vector3 dir, GAMEOBJECT_STATE state, bool isInfluenceBackground)
-{
-	Bullet* bullet = new Bullet(Resources->LoadTexture("Bullet/Player_Bullet.png"),
-		dir * 1000);
-
-	bullet->SetPos(pos);
-
-	bullet->SetInFluenceBackground(isInfluenceBackground);
-
-	OBJECTMANAGER->AddGameObject(bullet, GameObject::PLAYER_BULLET);
-
-	Background* background = (Background*)(*OBJECTMANAGER->FindGameObjectsWithTag(
-		GameObject::BACKGROUND).begin());
-
-	Cartridge* cartridge = new Cartridge(pos, background);
-
-	OBJECTMANAGER->AddGameObject(cartridge, GameObject::EFFECT);
-
-	return nullptr;
-}

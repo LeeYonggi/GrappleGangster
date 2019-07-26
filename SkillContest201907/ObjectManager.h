@@ -12,6 +12,7 @@ public:
 
 private:
 	list<GameObject*> objList;
+	list<GameObject*> uiList;
 	map<GameObject::GAMEOBJECT_STATE, list<GameObject*>> objTagMap;
 
 public:

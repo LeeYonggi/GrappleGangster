@@ -54,8 +54,16 @@ void Player::Init()
 
 	// รั
 	gun.push_back(ride->CreateGun());
+	gun.push_back(nullptr);
 
 	nowGun = 0;
+
+	// UI
+	reload = new GameUI(Resources->LoadTexture("UI/ReloadGage/R.png"));
+
+	OBJECTMANAGER->AddGameObject(reload, GameObject::EFFECT);
+
+	reload->SetActive(false);
 }
 
 void Player::Update()
@@ -78,6 +86,7 @@ void Player::Render()
 void Player::Release()
 {
 	motionBlur->SetDestroy(true);
+	Timer::RemoveTimer(jumpTimer);
 	gun.clear();
 }
 
@@ -105,7 +114,7 @@ void Player::PlayerMove()
 	pos.x = min(max(pos.x, -SCREEN_X * 0.5f), SCREEN_X * 0.5f);
 	pos.y = min(max(pos.y, -SCREEN_Y * 0.5f), SCREEN_Y * 0.5f);
 	
-	pos.z = pos.y + SCREEN_Y * 0.5f;
+	pos.z = FixZToY(pos.y);
 
 	if (jumpTimer->IsEnd)
 		mainTexture = Resources->LoadTexture("Character/Player/body.png");
@@ -118,6 +127,8 @@ void Player::PlayerMove()
 
 void Player::PlayerAttack()
 {
+	PlayerGun();
+	if (gun[nowGun] == nullptr) return;
 	gun[nowGun]->GunControll(pos, Vector2(ScreenToWorldCamera(INPUTMANAGER->GetMousePos())));
 
 	bool isKey = (INPUTMANAGER->IsKeyPress(VK_LBUTTON) || INPUTMANAGER->IsKeyDown(VK_LBUTTON));
@@ -127,10 +138,8 @@ void Player::PlayerAttack()
 		Vector3 dir = ScreenToWorldCamera(INPUTMANAGER->GetMousePos());
 		dir = GetVec3Distance(Vector3(pos.x, pos.y, 0), dir);
 
-		Bullet::MakeRifleBullet(pos, dir, PLAYER_BULLET, true);
-
-		gun[nowGun]->GunShoot();
-		gun[nowGun]->timer->Reset(fireDelay);
+		gun[nowGun]->MakeRifleBullet(pos, PLAYER_BULLET, true, 1000);
+		gun[nowGun]->timer->Reset(gun[nowGun]->maxTime);
 	}
 }
 
@@ -178,5 +187,44 @@ void Player::PlayerJumpUpdate()
 	velocity.y -= 500 * ELTime;
 
 	pos += velocity * ELTime;
+}
+
+void Player::PlayerGun()
+{
+	if (INPUTMANAGER->IsKeyDown('1'))
+	{
+		nowGun = 0;
+		gun[nowGun]->SetActive(true);
+		if(gun[1] != nullptr)
+			gun[1]->SetActive(false);
+	}
+	if (INPUTMANAGER->IsKeyDown('2') && gun[1] != nullptr)
+	{
+		nowGun = 1;
+		gun[0]->SetActive(false);
+		gun[nowGun]->SetActive(true);
+	}
+
+	if (gun[nowGun] == nullptr) return;
+	if (nowGun == 1 && gun[nowGun]->bulletCount < 1)
+	{
+		gun[nowGun]->Reload();
+		return;
+	}
+	else if (INPUTMANAGER->IsKeyDown('R'))
+	{
+		gun[nowGun]->Reload();
+	}
+	if (gun[nowGun]->bulletCount < 1 &&
+		gun[nowGun]->reloadTimer->GetAnyTime() == gun[nowGun]->maxReloadTime)
+	{
+		reload->SetActive(true);
+
+		Vector2 uiPos = WorldCameraToScreen(pos);
+
+		reload->SetPos(Vector3(uiPos.x + 60, uiPos.y - 60, 0));
+	}
+	else
+		reload->SetActive(false);
 }
 

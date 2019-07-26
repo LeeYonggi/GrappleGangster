@@ -102,6 +102,15 @@
     <Filter Include="GameObject\Character\Player">
       <UniqueIdentifier>{0c8ee319-6729-4c48-b2ee-6cd0894107af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI">
+      <UniqueIdentifier>{8d18931a-6dc9-4e3a-9026-e22fe0c0a412}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Character\Enemy\Enemy2">
+      <UniqueIdentifier>{957b39a9-f40f-4355-af54-501a74702461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\InGameUI">
+      <UniqueIdentifier>{1d6d41ba-5bbb-4cd3-bffd-38f58ea5327d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -245,6 +254,13 @@
     <ClCompile Include="Character.cpp">
       <Filter>GameObject\Character</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy2.cpp" />
+    <ClCompile Include="GameUI.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameUI.cpp">
+      <Filter>GameObject\UI\InGameUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -340,6 +356,13 @@
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>GameObject\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy2.h" />
+    <ClInclude Include="GameUI.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameUI.h">
+      <Filter>GameObject\UI\InGameUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

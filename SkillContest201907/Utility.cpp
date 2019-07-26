@@ -10,6 +10,14 @@ Vector3 ScreenToWorldCamera(Vector2 pos)
 	return result;
 }
 
+Vector2 WorldCameraToScreen(Vector3 pos)
+{
+	Vector2 result = Vector2(0, 0);
+	result.x = (SCREEN_X * 0.5f) + pos.x;
+	result.y = (SCREEN_Y * 0.5f) - pos.y;
+	return result;
+}
+
 Vector3 GetVec3Distance(const Vector3& p1, const Vector3& p2)
 {
 	Vector3 result = p2 - p1;

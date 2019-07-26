@@ -54,7 +54,10 @@ void Ride::Update()
 		motion->SetActive(true);
 
 		if (rider->GetTag() == PLAYER)
+		{
 			motion->SetTargetState(MOTION_PLAYER);
+			radius = 20;
+		}
 		else
 			motion->SetTargetState(MOTION_MANAGED);
 
@@ -115,13 +118,13 @@ Gun* Ride::CreateGun()
 	switch (state)
 	{
 	case Ride::KOREA_BIKE:
-		gun = new Gun(Resources->LoadTexture("Gun/HandGun.png"), Timer::AddTimer(0.7f));
+		gun = new Gun(rider, Resources->LoadTexture("Gun/HandGun.png"), 0.7f, 1.0f);
 		break;
 	case Ride::JAPAN_BIKE1:
-		gun = new Gun(Resources->LoadTexture("Gun/HandGun.png"), Timer::AddTimer(0.7f));
+		gun = new Gun(rider, Resources->LoadTexture("Gun/HandGun.png"), 0.7f, 2.0f);
 		break;
 	case Ride::JAPAN_BIKE2:
-		gun = new Gun(Resources->LoadTexture("Gun/RifleGun.png"), Timer::AddTimer(0.2f));
+		gun = new Gun(rider, Resources->LoadTexture("Gun/RifleGun.png"), 0.2f, 2.0f);
 		break;
 	default:
 		break;
@@ -166,5 +169,11 @@ void Ride::RidePlayer()
 	{
 		player->SetRide(this);
 		rider = player;
+		if (state == JAPAN_BIKE2)
+		{
+			player->gun[1] = CreateGun();
+			player->gun[1]->SetActive(false);
+			player->gun[1]->reloadCount = 10;
+		}
 	}
 }
