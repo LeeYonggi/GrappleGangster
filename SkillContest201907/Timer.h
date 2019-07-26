@@ -48,6 +48,9 @@ public:
 
 	static void SetTimeScale(float time);
 
+	static void SetTimeScaleMin(float time);
+	static void SetTimeScaleMax(float time);
+
 	static float GetTimeScale() { return timeScale; }
 };
 

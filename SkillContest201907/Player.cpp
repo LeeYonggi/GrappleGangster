@@ -9,6 +9,20 @@
 #include "Ride.h"
 #include "Gun.h"
 
+Player* Player::mainPlayer = nullptr;
+
+
+Player::Player()
+{
+	if (mainPlayer == nullptr)
+		mainPlayer = this;
+}
+
+Player::~Player()
+{
+	if (mainPlayer == this)
+		mainPlayer = nullptr;
+}
 
 void Player::Init()
 {
@@ -18,6 +32,9 @@ void Player::Init()
 	moveSpeed = 350;
 	pos.y = -100;
 	fireDelay = 0.7f;
+	jumpTimer = Timer::AddTimer(0.0f);
+	jumpAnime = Resources->LoadTextures("Character/Player/character_jump/%d.png", 1, 4);
+	velocity = Vector3(0, 0, 0);
 
 	// 뒷배경
 	background = dynamic_cast<Background*>(*OBJECTMANAGER->FindGameObjectsWithTag(
@@ -28,7 +45,7 @@ void Player::Init()
 
 	OBJECTMANAGER->AddGameObject(backEffect, GameObject::EFFECT);
 
-	backEffect->SetActive(false);
+	backEffect->SetActive(true);
 
 	// 오도방구
 	ride = new Ride(this, Ride::KOREA_BIKE);
@@ -45,22 +62,12 @@ void Player::Update()
 {
 	PlayerMove();
 	PlayerAttack();
+	PlayerTimeStop();
 
-	static bool f = false;
-
-	/*if (INPUTMANAGER->IsKeyDown(VK_SPACE)) f = !f;
-
-	if (f)
-	{
-		Timer::SetTimeScale(Lerp(Timer::GetTimeScale(), 0.1f, 0.05f));
-
-		backEffect->SetActive(true);
-	}
-	else {
-		Timer::SetTimeScale(Lerp(Timer::GetTimeScale(), 1.0f, 0.05f));
-
-		backEffect->SetActive(false);
-	}*/
+	if (INPUTMANAGER->IsKeyDown(VK_SPACE))
+		PlayerJump();
+	if (ride == nullptr)
+		PlayerJumpUpdate();
 }
 
 void Player::Render()
@@ -74,22 +81,39 @@ void Player::Release()
 	gun.clear();
 }
 
+bool Player::CharacterDie(Vector3 moveVec3)
+{
+	return false;
+}
+
 void Player::PlayerMove()
 {
 	moveVector.x = INPUTMANAGER->GetHorizontal();
-	moveVector.y = INPUTMANAGER->GetVertical();
+	if (ride == nullptr)
+		moveVector.y = 0;
+	else
+		moveVector.y = INPUTMANAGER->GetVertical();
 
 	if (moveVector.x < 0)
 		moveVector.x = -0.7f;
 	
 	Vector3 nextPos = pos + moveVector * moveSpeed * ELTime;
 
-	if (background->IsGroundCollision(Vector2(nextPos)) == Background::NONE)
+	if (background->IsGroundCollision(Vector2(nextPos)) == Background::NONE 
+		|| ride == nullptr)
 		pos = nextPos;
 	pos.x = min(max(pos.x, -SCREEN_X * 0.5f), SCREEN_X * 0.5f);
 	pos.y = min(max(pos.y, -SCREEN_Y * 0.5f), SCREEN_Y * 0.5f);
 	
 	pos.z = pos.y + SCREEN_Y * 0.5f;
+
+	if (jumpTimer->IsEnd)
+		mainTexture = Resources->LoadTexture("Character/Player/body.png");
+	else if(isRideOn)
+	{
+		int nowTexture = (jumpTimer->GetAnyTime() / 0.6f) * (jumpAnime.size() - 1);
+		mainTexture = jumpAnime[nowTexture];
+	}
 }
 
 void Player::PlayerAttack()
@@ -97,6 +121,7 @@ void Player::PlayerAttack()
 	gun[nowGun]->GunControll(pos, Vector2(ScreenToWorldCamera(INPUTMANAGER->GetMousePos())));
 
 	bool isKey = (INPUTMANAGER->IsKeyPress(VK_LBUTTON) || INPUTMANAGER->IsKeyDown(VK_LBUTTON));
+	gun[nowGun]->timer->SetIsInfluenceOfTimeScale(false);
 	if (isKey && gun[nowGun]->timer->IsEnd)
 	{
 		Vector3 dir = ScreenToWorldCamera(INPUTMANAGER->GetMousePos());
@@ -104,7 +129,54 @@ void Player::PlayerAttack()
 
 		Bullet::MakeRifleBullet(pos, dir, PLAYER_BULLET, true);
 
+		gun[nowGun]->GunShoot();
 		gun[nowGun]->timer->Reset(fireDelay);
 	}
+}
+
+void Player::PlayerTimeStop()
+{
+	static bool isTimeStop = false;
+
+	isTimeStop = INPUTMANAGER->IsKeyPress(VK_SHIFT);
+
+	if (isTimeStop == true)
+	{
+		Timer::SetTimeScale(Lerp(Timer::GetTimeScale(), 0.1f, 0.05f));
+
+		backEffect->SetColor(Color(1, 1, 1, Lerp(backEffect->GetColor().a, 1.0f, 0.25f)));
+	}
+
+	if (isTimeStop == false)
+	{
+		Timer::SetTimeScale(Lerp(Timer::GetTimeScale(), 1.0f, 0.05f));
+
+		backEffect->SetColor(Color(1, 1, 1, Lerp(backEffect->GetColor().a, 0.0f, 0.25f)));
+	}
+}
+
+void Player::PlayerJump()
+{
+	if (ride == nullptr) return;
+
+	ride->SetRider(nullptr);
+	ride = nullptr;
+	isRideOn = false;
+
+	jumpTimer->Reset(0.4f);
+
+	pos.y += 20;
+
+	velocity.y = 400;
+}
+
+void Player::PlayerJumpUpdate()
+{
+	int nowTexture = ((0.4f - jumpTimer->GetAnyTime()) / 0.4f) * (jumpAnime.size() - 1);
+	mainTexture = jumpAnime[nowTexture];
+
+	velocity.y -= 500 * ELTime;
+
+	pos += velocity * ELTime;
 }
 

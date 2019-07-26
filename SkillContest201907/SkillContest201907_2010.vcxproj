@@ -387,9 +387,11 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimeEffect.cpp" />
     <ClCompile Include="BackEffect.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Cartridge.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemy1.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -397,11 +399,13 @@
     <ClCompile Include="Ride.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Utility.cpp" />
+    <ClInclude Include="AnimeEffect.h" />
     <ClInclude Include="BackEffect.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="Cartridge.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemy1.h" />
     <ClInclude Include="EventHandler.h" />

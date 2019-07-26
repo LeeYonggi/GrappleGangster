@@ -19,5 +19,6 @@ public:
 
 public:
 	void GunControll(Vector3 pos, Vector2 target);
+	void GunShoot();
 };
 

@@ -6,7 +6,7 @@ class Gun;
 class Player;
 class Background;
 class Enemy :
-	public GameObject
+	public Character
 {
 	using EnemyFunc = void(Enemy::*)(void);
 public:
@@ -37,8 +37,6 @@ protected:
 	float sinCount = 0.0f;
 	float cosCount = 0.0f;
 
-	int hp = 0;
-
 	// Á×À½ °ü·Ã
 	Vector3 dieVec3 = Vector3(0, 0, 0);
 	float diePosY = 0;
@@ -58,6 +56,7 @@ public:
 
 public:
 	void EnemyAttaked();
+	bool CharacterDie(Vector3 moveVec3);
 	bool GetIsDie() { return isDie; }
 };
 

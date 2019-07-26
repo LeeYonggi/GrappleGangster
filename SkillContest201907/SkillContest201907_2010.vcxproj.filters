@@ -39,9 +39,6 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{0c3a008c-5ab3-4a6f-995e-76493b67bc98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Player">
-      <UniqueIdentifier>{0c8ee319-6729-4c48-b2ee-6cd0894107af}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\SceneManager">
       <UniqueIdentifier>{5ca5c24c-0a1c-4094-8841-c4ef010e3965}</UniqueIdentifier>
     </Filter>
@@ -75,12 +72,6 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{0a4bd21f-9211-4f63-a4e7-e2e93a026010}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Enemy">
-      <UniqueIdentifier>{eaf06cf9-df4f-43a7-806b-f5eb6f6f0c1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\Enemy\Enemy1">
-      <UniqueIdentifier>{c997640c-5c07-4d5d-860f-66dd2fbc88de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\GameManager">
       <UniqueIdentifier>{528bddd7-4106-41fd-b1b2-6f39cb21e897}</UniqueIdentifier>
     </Filter>
@@ -95,6 +86,21 @@
     </Filter>
     <Filter Include="GameObject\Gun">
       <UniqueIdentifier>{2f044f9a-5984-4f02-b0f9-34e85658d995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\AnimeEffect">
+      <UniqueIdentifier>{9e4343ef-4651-41d5-abeb-a8959f6af56e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Character">
+      <UniqueIdentifier>{0e20272d-871c-4997-92b2-700e9f3f14b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Character\Enemy">
+      <UniqueIdentifier>{eaf06cf9-df4f-43a7-806b-f5eb6f6f0c1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Character\Enemy\Enemy1">
+      <UniqueIdentifier>{c997640c-5c07-4d5d-860f-66dd2fbc88de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Character\Player">
+      <UniqueIdentifier>{0c8ee319-6729-4c48-b2ee-6cd0894107af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -177,7 +183,7 @@
       <Filter>Manager\InputManager</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>GameObject\Player</Filter>
+      <Filter>GameObject\Character\Player</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>Manager\ObjectManager</Filter>
@@ -213,10 +219,10 @@
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>GameObject\Enemy</Filter>
+      <Filter>GameObject\Character\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Enemy1.cpp">
-      <Filter>GameObject\Enemy\Enemy1</Filter>
+      <Filter>GameObject\Character\Enemy\Enemy1</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>Manager\GameManager</Filter>
@@ -232,6 +238,12 @@
     </ClCompile>
     <ClCompile Include="Gun.cpp">
       <Filter>GameObject\Gun</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimeEffect.cpp">
+      <Filter>GameObject\AnimeEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>GameObject\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -267,7 +279,7 @@
       <Filter>Manager\InputManager</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>GameObject\Player</Filter>
+      <Filter>GameObject\Character\Player</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>Manager\ObjectManager</Filter>
@@ -303,10 +315,10 @@
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>GameObject\Enemy</Filter>
+      <Filter>GameObject\Character\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Enemy1.h">
-      <Filter>GameObject\Enemy\Enemy1</Filter>
+      <Filter>GameObject\Character\Enemy\Enemy1</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Manager\GameManager</Filter>
@@ -322,6 +334,12 @@
     </ClInclude>
     <ClInclude Include="Gun.h">
       <Filter>GameObject\Gun</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimeEffect.h">
+      <Filter>GameObject\AnimeEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>GameObject\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

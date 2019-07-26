@@ -1,15 +1,16 @@
 #pragma once
 #include "GameObject.h"
-
-class BackEffect :
+class AnimeEffect :
 	public GameObject
 {
 public:
-	BackEffect() {}
-	virtual ~BackEffect() { }
+	AnimeEffect(float time, vector<Texture*> anime);
+	virtual ~AnimeEffect();
 
 private:
-	Texture* subTexture;
+	Timer* timer = nullptr;
+	vector<Texture*> textures;
+	float maxTime = 0.0f;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -17,5 +18,6 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 	virtual void Release() override;
+
 };
 

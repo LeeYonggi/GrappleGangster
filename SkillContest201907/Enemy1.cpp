@@ -14,9 +14,9 @@ Enemy1::Enemy1(Vector3 _targetPos, Vector3 spawnPos, Player* player)
 	
 	gun = ride->CreateGun();
 
-	hp = 3;
+	hp = 1;
 
-	radius = 50;
+	radius = 20;
 }
 
 Enemy1::~Enemy1()
@@ -32,7 +32,6 @@ void Enemy1::Init()
 	mainTexture = Resources->LoadTexture("Character/Enemy/Enemy.png");
 
 	moveSpeed = 500.0f;
-
 	__super::Init();
 }
 

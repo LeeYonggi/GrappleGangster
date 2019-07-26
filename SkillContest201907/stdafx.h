@@ -38,6 +38,9 @@ using Object = void*;
 
 #include "InGameScene.h"
 
+#include "Character.h"
 #include "Player.h"
+
+#include "AnimeEffect.h"
 
 #include "MainProc.h"

@@ -26,7 +26,7 @@ public:
 public:
 	void Update();
 	void SetCamera();
-	void OneStopCamera();
+	void OneStopCamera(float time);
 };
 
 #define CAMERAMANAGER CameraManager::GetInstance()

@@ -21,7 +21,7 @@ CameraManager::~CameraManager()
 void CameraManager::Update()
 {
 	if(timeStop->GetAnyTime() < 0.3)
-		Timer::SetTimeScale(1.0f);
+		Timer::SetTimeScaleMin(1.0f);
 
 	if (timeStop->IsEnd == true)
 		position = { 0, 0, -10 };
@@ -47,12 +47,12 @@ void CameraManager::SetCamera()
 	DEVICE->SetTransform(D3DTS_PROJECTION, &proj);
 }
 
-void CameraManager::OneStopCamera()
+void CameraManager::OneStopCamera(float time)
 {
-	Timer::SetTimeScale(0.3f);
+	Timer::SetTimeScaleMin(0.3f);
 	
 	position.x += GetRandomNumberBetween(-3, 3);
 	position.y += GetRandomNumberBetween(-3, 3);
 
-	timeStop->Reset(0.5f);
+	timeStop->Reset(time);
 }

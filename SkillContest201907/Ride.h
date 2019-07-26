@@ -17,17 +17,19 @@ public:
 	};
 
 public:
-	Ride(GameObject *_rider, RIDE_STATE rideState);
+	Ride(Character *_rider, RIDE_STATE rideState);
 	virtual ~Ride();
 
 private:
-	GameObject *rider = nullptr;
+	Character *rider = nullptr;
 	RIDE_STATE state;
 
 	MotionBlur* motion = nullptr;
 	Background* background = nullptr;
 
 	Vector3 moveVector = Vector3(0, 0, 0);
+
+	int hp = 3;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -37,7 +39,10 @@ public:
 	virtual void Release() override;
 
 public:
-	void SetRider(GameObject *value) { rider = value; }
+	void SetRider(Character *value) { rider = value; }
+	void RideAttacked();
 	Gun* CreateGun();
+	void Die();
+	void RidePlayer();
 };
 

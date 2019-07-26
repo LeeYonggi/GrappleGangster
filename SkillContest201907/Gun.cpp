@@ -1,6 +1,8 @@
 #include "DXUT.h"
 #include "Gun.h"
 
+#include "AnimeEffect.h"
+
 void Gun::Init()
 {
 
@@ -33,4 +35,18 @@ void Gun::GunControll(Vector3 pos, Vector2 target)
 		this->SetFlip(true);
 	else
 		this->SetFlip(false);
+}
+
+void Gun::GunShoot()
+{
+	vector<Texture*> anime = Resources->LoadTextures("Effect/gun_effect/%d.png", 1, 5);
+
+	AnimeEffect* effect = new AnimeEffect(0.3f, anime);
+
+	OBJECTMANAGER->AddGameObject(effect, GameObject::EFFECT);
+
+	Vector3 dis = Vector3(cos(D3DXToRadian(rotate)), sin(D3DXToRadian(rotate)), 0);
+
+	effect->SetRotate(rotate);
+	effect->SetPos(pos + dis * 10);
 }

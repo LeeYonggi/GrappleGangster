@@ -73,3 +73,13 @@ void Timer::SetTimeScale(float time)
 {
 	timeScale = time;
 }
+
+void Timer::SetTimeScaleMin(float time)
+{
+	timeScale = min(time, timeScale);
+}
+
+void Timer::SetTimeScaleMax(float time)
+{
+	timeScale = max(time, timeScale);
+}

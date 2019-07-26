@@ -29,7 +29,7 @@ void Enemy::Update()
 {
 	(this->*enemyFunc[enemyState])();
 	
-	if (enemyState != ENEMY_DIE)
+	if (enemyState != ENEMY_STATE::ENEMY_DIE)
 	{
 		pos.z = FixZToY(pos.y);
 		gun->GunControll(pos, Vector2(player->GetPos()));
@@ -68,8 +68,6 @@ void Enemy::EnemyMove()
 
 void Enemy::EnemyDie()
 {
-	ride->SetRider(nullptr);
-
 	mainTexture = dieTexture;
 
 	if (diePosY < pos.y || dieVec3.y > 0)
@@ -95,31 +93,44 @@ void Enemy::EnemyDie()
 
 void Enemy::EnemyAttaked()
 {
-	auto bullets = OBJECTMANAGER->FindGameObjectsWithTag(GameObject::PLAYER_BULLET);
+	auto& bullets = OBJECTMANAGER->FindGameObjectsWithTag(GameObject::PLAYER_BULLET);
 
-	for (auto iter = bullets.begin(); iter != bullets.end(); iter++)
+	for (auto* iter : bullets)
 	{
-		bool isHit = GameObject::IsCircleCollision((*iter)->GetPos(), pos, (*iter)->GetRadius(), radius);
+		Vector3 dis = Vector3(0, 10, 25);
 
-		if (isHit)
+		bool isHit = GameObject::IsCircleCollision(iter->GetPos(), pos + dis, iter->GetRadius(), radius);
+
+		if (!isHit) continue;
+
+		hp -= 1;
+
+		iter->SetDestroy(true);
+
+		if (CharacterDie(static_cast<Bullet*>(iter)->GetMoveVector()) == true)
 		{
-			hp -= 1;
-			(*iter)->SetDestroy(true);
-
-			if (hp < 1)
-			{
-				enemyState = ENEMY_DIE;
-				dieVec3 = dynamic_cast<Bullet*>((*iter))->GetMoveVector();
-				D3DXVec3Normalize(&dieVec3, &dieVec3);
-				
-				diePosY = dieVec3.y * 100;
-				dieVec3 *= 300;
-				dieVec3.y += 400;
-				gun->SetDestroy(true);
-
-				CAMERAMANAGER->OneStopCamera();
-				break;
-			}
+			if (ride)
+				ride->SetRider(nullptr);
 		}
+
+		CAMERAMANAGER->OneStopCamera(0.5f);
+
+		break;
 	}
+}
+
+bool Enemy::CharacterDie(Vector3 moveVec3)
+{
+	if (hp > 0) return false;
+
+	enemyState = ENEMY_DIE;
+	dieVec3 = moveVec3;
+	D3DXVec3Normalize(&dieVec3, &dieVec3);
+
+	diePosY = dieVec3.y * 100;
+	dieVec3 *= 300;
+	dieVec3.y += 400;
+	gun->SetDestroy(true);
+
+	return true;
 }
