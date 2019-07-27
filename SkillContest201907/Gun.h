@@ -37,6 +37,9 @@ public:
 	virtual void Release() override;
 
 public:
+	virtual void OnDisable();
+
+public:
 	void GunControll(Vector3 pos, Vector2 target);
 	void MakeRifleBullet(Vector3 pos, GAMEOBJECT_STATE state, bool isInfluenceBackground, float speed);
 	void Reload();

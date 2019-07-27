@@ -254,12 +254,14 @@
     <ClCompile Include="Character.cpp">
       <Filter>GameObject\Character</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy2.cpp" />
     <ClCompile Include="GameUI.cpp">
       <Filter>GameObject\UI</Filter>
     </ClCompile>
     <ClCompile Include="InGameUI.cpp">
       <Filter>GameObject\UI\InGameUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy2.cpp">
+      <Filter>GameObject\Character\Enemy\Enemy2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -357,12 +359,14 @@
     <ClInclude Include="Character.h">
       <Filter>GameObject\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy2.h" />
     <ClInclude Include="GameUI.h">
       <Filter>GameObject\UI</Filter>
     </ClInclude>
     <ClInclude Include="InGameUI.h">
       <Filter>GameObject\UI\InGameUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy2.h">
+      <Filter>GameObject\Character\Enemy\Enemy2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

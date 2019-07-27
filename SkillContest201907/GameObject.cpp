@@ -28,6 +28,24 @@ void GameObject::Release()
 {
 }
 
+void GameObject::OnEnable()
+{
+
+}
+
+void GameObject::OnDisable()
+{
+}
+
+void GameObject::SetActive(bool value)
+{
+	isActive = value;
+	if (value == true)
+		OnEnable();
+	else
+		OnDisable();
+}
+
 bool GameObject::IsCircleCollision(Vector3 p1, Vector3 p2, float r1, float r2)
 {
 	Vector3 temp = p2 - p1;

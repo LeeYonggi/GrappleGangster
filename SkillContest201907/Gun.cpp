@@ -46,6 +46,12 @@ void Gun::Release()
 	gage2->SetDestroy(true);
 }
 
+void Gun::OnDisable()
+{
+	gage->SetActive(false);
+	gage2->SetActive(false);
+}
+
 void Gun::GunControll(Vector3 pos, Vector2 target)
 {
 	Vector2 dis = GetVec3Distance(Vector3(pos.x, pos.y, 0), Vector3(target.x, target.y, 0));

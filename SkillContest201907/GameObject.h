@@ -50,6 +50,10 @@ public:
 	virtual void Release() = 0;
 
 public:
+	virtual void OnEnable();
+	virtual void OnDisable();
+
+public:
 	Property(get = GetPos, put = SetPos) Vector3 Position;
 	Property(get = GetScale, put = SetScale) Vector2 Scale;
 	Property(get = GetRotate, put = SetRotate) float Rotate;
@@ -75,7 +79,7 @@ public:
 	GAMEOBJECT_STATE GetTag() { return tag; }
 
 	bool GetActive() { return isActive; }
-	void SetActive(bool value) { isActive = value; }
+	void SetActive(bool value);
 
 	bool GetDestroy() { return isDestroy; }
 	void SetDestroy(bool value) { isDestroy = value; }
