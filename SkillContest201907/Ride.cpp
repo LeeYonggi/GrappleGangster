@@ -66,7 +66,7 @@ void Ride::Update()
 	else
 	{
 		RidePlayer();
-		moveVector = Vector3(-background->GetMoveSpeed() * 0.3f, 0, 0);
+		moveVector = Vector3(-background->GetMoveSpeed() * 0.1f, 0, 0);
 		motion->SetActive(false);
 		pos += moveVector * ELTime;
 	}

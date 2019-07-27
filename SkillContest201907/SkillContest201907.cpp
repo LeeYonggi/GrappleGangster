@@ -154,7 +154,7 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     DXUTSetHotkeyHandling( true, true, true );  // handle the default hotkeys
     DXUTSetCursorSettings( false, false ); // Show the cursor and clip it when in full screen
     DXUTCreateWindow( L"SkillContest201907" );
-    DXUTCreateDevice( true, 1280, 720);
+    DXUTCreateDevice( false, 1280, 720);
 
     // Start the render loop
     DXUTMainLoop();

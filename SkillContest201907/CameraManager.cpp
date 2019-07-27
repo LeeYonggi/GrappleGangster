@@ -16,6 +16,7 @@ CameraManager::CameraManager()
 CameraManager::~CameraManager()
 {
 	Timer::RemoveTimer(timeStop);
+	timeStop = nullptr;
 }
 
 
