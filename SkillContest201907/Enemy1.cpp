@@ -31,7 +31,7 @@ void Enemy1::Init()
 
 	mainTexture = Resources->LoadTexture("Character/Enemy/Enemy.png");
 
-	moveSpeed = 300.0f;
+	moveSpeed = 500.0f;
 
 	gun->reloadCount = 1;
 	gun->bulletCount = 1;
@@ -44,10 +44,11 @@ void Enemy1::Update()
 	__super::Update();
 
 	if (enemyState == ENEMY_DIE) return;
+	EnemyMoveCollision();
 
 	if (attackTimer->IsEnd)
 	{
-		gun->MakeRifleBullet(pos, GameObject::ENEMY_BULLET, true, 800);
+		gun->GunShoot(GameObject::ENEMY_BULLET, 800);
 	}
 	if(gun->bulletCount < 1)
 		gun->Reload();

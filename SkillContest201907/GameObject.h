@@ -33,7 +33,7 @@ protected:
 	float rotate = 0;
 	Color color = Color(1, 1, 1, 1);
 
-	Texture* mainTexture;
+	Texture* mainTexture = nullptr;
 
 	GAMEOBJECT_STATE tag = DEFAULT;
 

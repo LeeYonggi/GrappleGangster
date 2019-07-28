@@ -31,7 +31,7 @@ void Enemy2::Init()
 
 	hp = 1;
 
-	moveSpeed = 300.0f;
+	moveSpeed = 500.0f;
 
 	gun->reloadCount = 5;
 	gun->bulletCount = 5;
@@ -44,10 +44,11 @@ void Enemy2::Update()
 	__super::Update();
 
 	if (enemyState != ENEMY_MOVE) return;
+	EnemyMoveCollision();
 
 	if (gun->timer->IsEnd)
 	{
-		gun->MakeRifleBullet(pos, GameObject::ENEMY_BULLET, true, 600);
+		gun->GunShoot(GameObject::ENEMY_BULLET, 600);
 		gun->timer->Reset(0.6f);
 	}
 	if (gun->bulletCount < 1)

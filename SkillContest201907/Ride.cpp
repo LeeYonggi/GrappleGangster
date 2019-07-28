@@ -5,6 +5,7 @@
 #include "Gun.h"
 #include "MotionBlur.h"
 #include "Background.h"
+#include "ChargeUI.h"
 
 Ride::Ride(Character* _rider, RIDE_STATE rideState)
 {
@@ -13,6 +14,15 @@ Ride::Ride(Character* _rider, RIDE_STATE rideState)
 
 	background = dynamic_cast<Background*>(*OBJECTMANAGER->FindGameObjectsWithTag(
 		GameObject::BACKGROUND).begin());
+
+	hpUI = new ChargeUI(Resources->LoadTexture("UI/ChargeUI/bike_hp.png"),
+		Resources->LoadTexture("UI/ChargeUI/bike_1_hp.png"), Vector2(20, 0), &hp);
+
+	OBJECTMANAGER->AddGameObject(hpUI, GameObject::UI);
+
+	hpUI->SetActive(false);
+
+	hitTimer = Timer::AddTimer(0.0f);
 
 	radius = 40.0f;
 }
@@ -28,13 +38,22 @@ void Ride::Init()
 	switch (state)
 	{
 	case Ride::KOREA_BIKE:
-		mainTexture = Resources->LoadTexture("Ride/Korea/Bike.png");
+		if(GAMEMANAGER->stage == STAGE_1)
+			mainTexture = Resources->LoadTexture("Ride/Korea/Bike.png");
+		else
+			mainTexture = Resources->LoadTexture("Ride/Korea/Boat.png");
 		break;
 	case Ride::JAPAN_BIKE1:
-		mainTexture = Resources->LoadTexture("Ride/Japan/Bike1.png");
+		if (GAMEMANAGER->stage == STAGE_1)
+			mainTexture = Resources->LoadTexture("Ride/Japan/Bike1.png");
+		else
+			mainTexture = Resources->LoadTexture("Ride/Japan/Boat1.png");
 		break;
 	case Ride::JAPAN_BIKE2:
-		mainTexture = Resources->LoadTexture("Ride/Japan/Bike2.png");
+		if (GAMEMANAGER->stage == STAGE_1)
+			mainTexture = Resources->LoadTexture("Ride/Japan/Bike2.png");
+		else													 
+			mainTexture = Resources->LoadTexture("Ride/Japan/Boat2.png");
 		break;
 	default:
 		break;
@@ -57,19 +76,43 @@ void Ride::Update()
 		{
 			motion->SetTargetState(MOTION_PLAYER);
 			radius = 20;
+			hpUI->SetActive(true);
+			hpUI->SetPos(Vector3(WorldCameraToScreen(pos)) + Vector3(-22, 50, 0));
+			if ((int)(hitTimer->GetAnyTime() * 10) == 4 )
+				color = Color(1, 1, 1, 1);
+			if ((int)(hitTimer->GetAnyTime() * 10) == 2)
+				color = Color(1, 0, 0, 1);
 		}
 		else
+		{
 			motion->SetTargetState(MOTION_MANAGED);
+			hpUI->SetActive(false);
+		}
 
 		RideAttacked();
 	}
 	else
 	{
 		RidePlayer();
-		moveVector = Vector3(-background->GetMoveSpeed() * 0.1f, 0, 0);
+		moveVector = Vector3(-background->GetMoveSpeed() * 0.15f, 0, 0);
 		motion->SetActive(false);
 		pos += moveVector * ELTime;
+
+		Background::GROUND_COLLISION collision = background->IsGroundCollision(Vector2(pos));
+
+		if (collision == Background::UNACCESS_UP)
+			pos = Vector3(pos.x, pos.y + 10, pos.z);
+		else if (collision == Background::UNACCESS_DOWN)
+			pos = Vector3(pos.x, pos.y - 10, pos.z);
+
+		hpUI->SetActive(false);
 	}
+
+	if (hitTimer->IsEnd)
+		color = Color(1, 1, 1, 1);
+
+	if (hp < 1)
+		Die();
 }
 
 void Ride::Render()
@@ -80,6 +123,8 @@ void Ride::Render()
 void Ride::Release()
 {
 	motion->SetDestroy(true);
+
+	hpUI->SetDestroy(true);
 }
 
 void Ride::RideAttacked()
@@ -93,21 +138,29 @@ void Ride::RideAttacked()
 
 	for (auto iter : bullets)
 	{
-		Vector3 dis = Vector3(0, -20, -20);
+		Vector3 dis = Vector3(0, -15, 0);
+		dis = pos + dis;
+		dis.z = FixZToY(dis.y);
 
-		if (!GameObject::IsCircleCollision((iter)->GetPos(), pos + dis, (iter)->GetRadius(), radius))
+		if (!GameObject::IsCircleCollision((iter)->GetPos(), dis, (iter)->GetRadius(), radius))
 			continue;
 
-		if (rider->GetTag() == GameObject::ENEMY)
-			CAMERAMANAGER->OneStopCamera(0.15f);
+		CAMERAMANAGER->OneStopCamera(0.15f);
+
+		color = Color(1, 0, 0, 1);
 
 		(iter)->SetDestroy(true);
-		hp -= 1;
-		
-		if (hp > 0)
-			continue;
 
-		Die();
+		if (rider->GetTag() == GameObject::PLAYER && hitTimer->IsEnd)
+		{
+			hitTimer->Reset(0.6f);
+			hp -= 1;
+		}
+		else if(rider->GetTag() == GameObject::ENEMY)
+		{
+			hitTimer->Reset(0.2f);
+			hp -= 1;
+		}
 	}
 }
 
@@ -141,20 +194,20 @@ void Ride::Die()
 		rider->SetHp(0);
 
 		rider->CharacterDie(Vector3(100, 100, 0));
-
-		SetDestroy(true);
-
-		vector<Texture*> anime = Resources->LoadTextures("Effect/explosion/explosion_%d.png", 1, 9);
-
-		AnimeEffect* effect = new AnimeEffect(0.6f, anime);
-
-		effect->SetScale(Vector2(2, 2));
-
-		effect->SetPos(pos);
-
-		OBJECTMANAGER->AddGameObject(effect, GameObject::EFFECT);
-		CAMERAMANAGER->OneStopCamera(0.5f);
 	}
+
+	SetDestroy(true);
+	
+	vector<Texture*> anime = Resources->LoadTextures("Effect/explosion/explosion_%d.png", 1, 9);
+	
+	AnimeEffect* effect = new AnimeEffect(0.6f, anime);
+	
+	effect->SetScale(Vector2(2, 2));
+	
+	effect->SetPos(pos);
+	
+	OBJECTMANAGER->AddGameObject(effect, GameObject::EFFECT);
+	CAMERAMANAGER->OneStopCamera(0.5f);
 }
 
 void Ride::RidePlayer()
@@ -169,7 +222,7 @@ void Ride::RidePlayer()
 	{
 		player->SetRide(this);
 		rider = player;
-		if (state == JAPAN_BIKE2)
+		if (state == JAPAN_BIKE2 && player->gun[1] == nullptr)
 		{
 			player->gun[1] = CreateGun();
 			player->gun[1]->SetActive(false);

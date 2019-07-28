@@ -60,6 +60,16 @@ void Timer::PauseAll(bool flag)
 	}
 }
 
+void Timer::RemoveAll()
+{
+	for(auto iter = timerContainer.begin(); iter != timerContainer.end(); )
+	{
+		Timer* timer = *iter;
+		iter = timerContainer.erase(iter);
+		SAFE_DELETE(timer);
+	}
+}
+
 void Timer::RemoveTimer(Timer* timer)
 {
 	if (timer == nullptr)

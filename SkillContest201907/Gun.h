@@ -18,7 +18,6 @@ public:
 
 private:
 	GameUI* gage = nullptr;
-	GameUI* gage2 = nullptr;
 	Character* owner = nullptr;
 
 public:
@@ -28,6 +27,7 @@ public:
 	float maxTime = 0.0f;
 	int bulletCount = 6;
 	int reloadCount = 6;
+	int chargeCount = 1;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -41,10 +41,11 @@ public:
 
 public:
 	void GunControll(Vector3 pos, Vector2 target);
-	void MakeRifleBullet(Vector3 pos, GAMEOBJECT_STATE state, bool isInfluenceBackground, float speed);
+	static void MakeRifleBullet(Vector3 pos, Vector3 target, GAMEOBJECT_STATE state, bool isInfluenceBackground, float speed);
 	void Reload();
 
-private:
-	void GunShoot(Vector3 dis);
+public:
+	void GunShoot(GAMEOBJECT_STATE state, float speed);
+	void GunShoot(GAMEOBJECT_STATE state, Vector3 target, float speed);
 };
 

@@ -1,6 +1,7 @@
 #include "DXUT.h"
 #include "MainProc.h"
 
+#include "MainScene.h"
 
 MainProc::MainProc()
 {
@@ -13,7 +14,7 @@ MainProc::~MainProc()
 
 void MainProc::Init()
 {
-	SCENEMANAGER->AddScene(new InGameScene());
+	SCENEMANAGER->AddScene(new MainScene(), false);
 }
 
 void MainProc::Update()
@@ -47,4 +48,6 @@ void MainProc::Release()
 	INPUTMANAGER->ReleaseInstance();
 	GAMEMANAGER->ReleaseInstance();
 	Resources->ReleaseInstance();
+
+	Timer::RemoveAll();
 }

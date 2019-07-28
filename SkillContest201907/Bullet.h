@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 class MotionBlur;
+class AnimeEffect;
 class Bullet
 	: public GameObject
 {
@@ -10,8 +11,10 @@ private:
 	Vector3 moveVector;
 
 	MotionBlur* motion;
+	AnimeEffect* animeEffect = nullptr;
 
 	bool isInfluenceBackground = true;
+	Vector3 target = Vector3(0, 0, 0);
 
 public:
 	Bullet(Texture* tex, Vector3 dir) : GameObject(tex), moveVector(dir) {}
@@ -25,5 +28,6 @@ public:
 public:
 	void SetInFluenceBackground(bool value) { isInfluenceBackground = value; }
 	Vector3 GetMoveVector() { return moveVector; }
+	void SetTargetZ(Vector3 value) { target = value; }
 };
 

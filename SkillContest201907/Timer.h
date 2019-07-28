@@ -43,6 +43,7 @@ public:
 	static Timer* AddTimer(float delay);
 
 	static void PauseAll(bool flag);
+	static void RemoveAll();
 
 	static void RemoveTimer(Timer* timer);
 

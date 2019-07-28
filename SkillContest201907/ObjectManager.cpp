@@ -88,6 +88,7 @@ void ObjectManager::Release()
 		iter.second.clear();
 	}
 	objTagMap.clear();
+	objList.clear();
 }
 
 const list<GameObject*>& ObjectManager::FindGameObjectsWithTag(GameObject::GAMEOBJECT_STATE tag)

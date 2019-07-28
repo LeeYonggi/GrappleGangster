@@ -9,10 +9,13 @@ public:
 	GameUI(float time, vector<Texture*> textures);
 	virtual ~GameUI() { }
 
-private:
+protected:
 	Vector2 length = { 1, 1 };
 
 public:
+	EventHandler<int> tuchEventHandler;
+	EventHandler<int> downEventHandler;
+
 	vector<Texture*> animeTexture;
 	Timer *timer = nullptr;
 	float maxTime = 0;

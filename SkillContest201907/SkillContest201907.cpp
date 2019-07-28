@@ -47,7 +47,7 @@ HRESULT CALLBACK OnD3D9CreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURF
 #else
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console") 
 #endif
-	//_CrtSetBreakAlloc(348);
+	//_CrtSetBreakAlloc(650);
 
 	srand(time(NULL));
 
@@ -154,7 +154,7 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     DXUTSetHotkeyHandling( true, true, true );  // handle the default hotkeys
     DXUTSetCursorSettings( false, false ); // Show the cursor and clip it when in full screen
     DXUTCreateWindow( L"SkillContest201907" );
-    DXUTCreateDevice( false, 1280, 720);
+    DXUTCreateDevice( true, 1280, 720);
 
     // Start the render loop
     DXUTMainLoop();

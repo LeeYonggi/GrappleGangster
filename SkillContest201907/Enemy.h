@@ -38,9 +38,12 @@ protected:
 	float moveSpeed = 1.0f;
 	float sinCount = 0.0f;
 	float cosCount = 0.0f;
+	bool isInfluenceGround = true;
 
 	// Á×À½ °ü·Ã
 	Vector3 dieVec3 = Vector3(0, 0, 0);
+	Timer* hitTimer = nullptr;
+	Timer* dieTimer = nullptr;
 	float diePosY = 0;
 	bool isDie = false;
 
@@ -56,10 +59,12 @@ public:
 	void EnemyMove();
 	void EnemyDie();
 	void EnemyWarring();
+	void EnemyMoveCollision();
+	void BossDie();
 
 public:
 	void EnemyAttaked();
-	bool CharacterDie(Vector3 moveVec3);
+	void CharacterDie(Vector3 moveVec3);
 	bool GetIsDie() { return isDie; }
 };
 

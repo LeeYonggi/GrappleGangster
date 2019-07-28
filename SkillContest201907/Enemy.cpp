@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Background.h"
+#include "AnimeEffect.h"
 
 Enemy::Enemy(Vector3 spawnPos, Player* _player, Texture* _dieTexture)
 {
@@ -24,11 +25,15 @@ Enemy::Enemy(Vector3 spawnPos, Player* _player, Texture* _dieTexture)
 	OBJECTMANAGER->AddGameObject(warringUI, GameObject::UI);
 
 	GAMEMANAGER->enemyCount += 1;
+
+	hitTimer = Timer::AddTimer(0.0f);
 }
 
 Enemy::~Enemy()
 {
 	Timer::RemoveTimer(attackTimer);
+	Timer::RemoveTimer(hitTimer);
+	Timer::RemoveTimer(dieTimer);
 }
 
 void Enemy::Init()
@@ -41,11 +46,19 @@ void Enemy::Update()
 	
 	EnemyWarring();
 
+	if (hitTimer->IsEnd)
+		color = Color(1, 1, 1, 1);
+
 	if (enemyState == ENEMY_STATE::ENEMY_DIE) return;
-	EnemyAttaked();
+
+	if(pos.x < SCREEN_X * 0.5f && pos.x > -SCREEN_X * 0.5f)
+		EnemyAttaked();
 	
-	pos.z = FixZToY(pos.y);
-	gun->GunControll(pos, Vector2(player->GetPos()));
+	if(isInfluenceGround)
+		pos.z = FixZToY(pos.y);
+
+	if(gun)
+		gun->GunControll(pos, Vector2(player->GetPos()));
 }
 
 void Enemy::Render()
@@ -82,13 +95,27 @@ void Enemy::EnemyDie()
 {
 	mainTexture = dieTexture;
 
-	if (diePosY < pos.y || dieVec3.y > 0)
+	if (diePosY < pos.y || dieVec3.y > 0 || (GAMEMANAGER->stage != STAGE_1 && pos.y > -90))
 	{
 		pos += dieVec3 * ELTime;
 
 		dieVec3.y -= 1000 * ELTime;
 
 		rotate += GetRandomNumberBetween(500, 1000) * ELTime;
+	}
+	else if (GAMEMANAGER->stage != STAGE_1)
+	{
+		vector<Texture*> anime = Resources->LoadTextures("Effect/splash/%d.png", 1, 9);
+
+		AnimeEffect* effect = new AnimeEffect(0.8f, anime);
+
+		OBJECTMANAGER->AddGameObject(effect, GAMEOBJECT_STATE::EFFECT);
+
+		effect->SetScale(Vector2(2, 2));
+
+		effect->SetPos(pos);
+
+		SetDestroy(true);
 	}
 	else
 	{
@@ -123,6 +150,71 @@ void Enemy::EnemyWarring()
 	}
 }
 
+void Enemy::EnemyMoveCollision()
+{
+	Background::GROUND_COLLISION collision = background->IsGroundCollision(Vector2(pos));
+
+	if (collision == Background::UNACCESS_UP)
+		pos = Vector3(pos.x, pos.y + 10, pos.z);
+	else if(collision == Background::UNACCESS_DOWN)
+		pos = Vector3(pos.x, pos.y - 10, pos.z);
+}
+
+void Enemy::BossDie()
+{
+	hitTimer->SetIsInfluenceOfTimeScale(false);
+	dieTimer->SetIsInfluenceOfTimeScale(false);
+	Timer::SetTimeScale(0.0f);
+	if (hitTimer->IsEnd)
+	{
+		hitTimer->Reset(0.1f);
+
+		Vector3 effectPos = pos;
+
+		effectPos.x += GetRandomNumberBetween(-200, 200);
+		effectPos.y += GetRandomNumberBetween(-200, 200);
+		effectPos.z = FixZToY(pos.y);
+
+		vector<Texture*> anime = Resources->LoadTextures("Effect/explosion/explosion_%d.png", 1, 9);
+
+		AnimeEffect* effect = new AnimeEffect(0.8f, anime);
+
+		OBJECTMANAGER->AddGameObject(effect, GAMEOBJECT_STATE::EFFECT);
+
+		effect->SetScale(Vector2(2, 2));
+
+		effect->SetPos(effectPos);
+
+		color = Color(1, 1, 1, 1);
+	}
+	if (dieTimer->IsEnd)
+	{
+		SetDestroy(true);
+
+		vector<Texture*> anime = Resources->LoadTextures("Effect/explosion/explosion_%d.png", 1, 9);
+
+		AnimeEffect* effect = new AnimeEffect(0.8f, anime);
+
+		OBJECTMANAGER->AddGameObject(effect, GAMEOBJECT_STATE::EFFECT);
+
+		effect->SetScale(Vector2(2, 2));
+
+		effect->SetPos(pos);
+
+		effect->SetScale({ 5, 5 });
+
+		auto enemy = OBJECTMANAGER->FindGameObjectsWithTag(ENEMY);
+
+		for (auto iter : enemy)
+		{
+			static_cast<Enemy*>(iter)->CharacterDie(Vector3(100, 100, 0));
+			static_cast<Enemy*>(iter)->ride = nullptr;
+		}
+
+		GAMEMANAGER->ChangeStage();
+	}
+}
+
 void Enemy::EnemyAttaked()
 {
 	auto& bullets = OBJECTMANAGER->FindGameObjectsWithTag(GameObject::PLAYER_BULLET);
@@ -139,9 +231,12 @@ void Enemy::EnemyAttaked()
 		hp -= 1;
 
 		iter->SetDestroy(true);
+		hitTimer->Reset(0.3f);
+		color = Color(1, 0, 0, 1);
 
-		if (CharacterDie(static_cast<Bullet*>(iter)->GetMoveVector()) == true)
+		if (hp < 1)
 		{
+			CharacterDie(static_cast<Bullet*>(iter)->GetMoveVector());
 			if (ride)
 				ride->SetRider(nullptr);
 		}
@@ -152,10 +247,8 @@ void Enemy::EnemyAttaked()
 	}
 }
 
-bool Enemy::CharacterDie(Vector3 moveVec3)
+void Enemy::CharacterDie(Vector3 moveVec3)
 {
-	if (hp > 0) return false;
-
 	enemyState = ENEMY_DIE;
 	dieVec3 = moveVec3;
 	D3DXVec3Normalize(&dieVec3, &dieVec3);
@@ -163,9 +256,13 @@ bool Enemy::CharacterDie(Vector3 moveVec3)
 	diePosY = dieVec3.y * 100;
 	dieVec3 *= 300;
 	dieVec3.y += 400;
-	gun->SetDestroy(true);
+	if(gun)
+		gun->SetDestroy(true);
+	
+	if(warringUI)
+		warringUI->SetDestroy(true);
+
+	dieTimer = Timer::AddTimer(3.0f);
 
 	GAMEMANAGER->enemyCount -= 1;
-
-	return true;
 }

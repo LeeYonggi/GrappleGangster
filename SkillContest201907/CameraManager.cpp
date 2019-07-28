@@ -4,21 +4,24 @@
 
 CameraManager::CameraManager()
 {
-	position = { 0, 0, -10};
-	at = {0, 0, 0};
-	up = {0, 1, 0};
-
-	timeStop = Timer::AddTimer(0.0f);
-	timeStop->SetIsInfluenceOfTimeScale(false);
+	Init();
 }
 
 
 CameraManager::~CameraManager()
 {
-	Timer::RemoveTimer(timeStop);
-	timeStop = nullptr;
 }
 
+
+void CameraManager::Init()
+{
+	position = { 0, 0, -10 };
+	at = { 0, 0, 0 };
+	up = { 0, 1, 0 };
+
+	timeStop = Timer::AddTimer(0.0f);
+	timeStop->SetIsInfluenceOfTimeScale(false);
+}
 
 void CameraManager::Update()
 {
@@ -37,6 +40,12 @@ void CameraManager::Update()
 		if (position.y > 10 || position.y < -10)
 			position.y = 0;
 	}
+}
+
+void CameraManager::Release()
+{
+	if (timeStop)
+		Timer::RemoveTimer(timeStop);
 }
 
 void CameraManager::SetCamera()

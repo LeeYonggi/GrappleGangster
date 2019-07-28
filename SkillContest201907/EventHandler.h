@@ -74,4 +74,15 @@ public:
 	{
 		Remove(e);
 	}
+
+	void RemoveAll()
+	{
+		for (auto iter : eventHandler)
+		{
+			SAFE_DELETE(iter.second);
+		}
+		eventHandler.clear();
+	}
+
+	int GetSize() { return eventHandler.size(); }
 };

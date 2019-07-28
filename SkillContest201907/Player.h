@@ -6,6 +6,7 @@ class MotionBlur;
 class BackEffect;
 class Ride;
 class Gun;
+class ChargeUI;
 class Player :
 	public Character
 {
@@ -15,15 +16,19 @@ private:
 	Background *background;
 	BackEffect* backEffect;
 	Ride* ride = nullptr;
-	Timer* jumpTimer = nullptr;
 	vector<Texture*> jumpAnime;
 	Vector3 velocity;
 	GameUI* reload = nullptr;
+	ChargeUI* timeUI = nullptr;
+
+	Timer* timeTimer = nullptr;
+	Timer* jumpTimer = nullptr;
 
 	float moveSpeed = 0.0f;
 	float fireDelay = 0.7f;
 
 	int nowGun = 0;
+	int timeCharge = 5;
 	bool isRideOn = true;
 
 public:
@@ -49,7 +54,7 @@ public:
 	bool IsRideOn() { return isRideOn; }
 
 public:
-	virtual bool CharacterDie(Vector3 moveVec3) override;
+	virtual void CharacterDie(Vector3 moveVec3) override;
 
 public:
 	void PlayerMove();

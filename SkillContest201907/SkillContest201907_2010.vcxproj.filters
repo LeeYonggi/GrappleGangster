@@ -111,6 +111,21 @@
     <Filter Include="GameObject\UI\InGameUI">
       <UniqueIdentifier>{1d6d41ba-5bbb-4cd3-bffd-38f58ea5327d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Character\Enemy\Car1">
+      <UniqueIdentifier>{c823a47b-61f3-4758-9a84-fdd563b89516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\ChargeUI">
+      <UniqueIdentifier>{edf7982a-a076-4bcf-8f79-57767cae7b9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\MainScene">
+      <UniqueIdentifier>{e30b609e-2152-4b2b-814a-280cc91d140f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Character\Enemy\Boss">
+      <UniqueIdentifier>{8c16b07d-aff2-4d88-a0d2-25139eb0c8c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\EndingScene">
+      <UniqueIdentifier>{50d2c725-ae72-47a2-a051-dc37a2676cfd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -263,6 +278,21 @@
     <ClCompile Include="Enemy2.cpp">
       <Filter>GameObject\Character\Enemy\Enemy2</Filter>
     </ClCompile>
+    <ClCompile Include="Car1.cpp">
+      <Filter>GameObject\Character\Enemy\Car1</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Scenes\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="ChargeUI.cpp">
+      <Filter>GameObject\UI\ChargeUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>GameObject\Character\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingScene.cpp">
+      <Filter>Scenes\EndingScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -367,6 +397,21 @@
     </ClInclude>
     <ClInclude Include="Enemy2.h">
       <Filter>GameObject\Character\Enemy\Enemy2</Filter>
+    </ClInclude>
+    <ClInclude Include="Car1.h">
+      <Filter>GameObject\Character\Enemy\Car1</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>Scenes\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="ChargeUI.h">
+      <Filter>GameObject\UI\ChargeUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>GameObject\Character\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingScene.h">
+      <Filter>Scenes\EndingScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@
 #include "BackEffect.h"
 #include "Ride.h"
 #include "Gun.h"
+#include "ChargeUI.h"
 
 Player* Player::mainPlayer = nullptr;
 
@@ -30,7 +31,7 @@ void Player::Init()
 	mainTexture = Resources->LoadTexture("Character/Player/body.png");
 	motionBlur = OBJECTMANAGER->AddGameObject(new MotionBlur(this, MOTION_PLAYER), GameObject::EFFECT);
 	moveSpeed = 350;
-	pos.y = -100;
+	pos.y = -200;
 	fireDelay = 0.7f;
 	jumpTimer = Timer::AddTimer(0.0f);
 	jumpAnime = Resources->LoadTextures("Character/Player/character_jump/%d.png", 1, 4);
@@ -64,10 +65,35 @@ void Player::Init()
 	OBJECTMANAGER->AddGameObject(reload, GameObject::EFFECT);
 
 	reload->SetActive(false);
+
+	// ÇÃ·¹ÀÌ¾î ½Ã°£¸ØÃã
+	timeTimer = Timer::AddTimer(5.0f);
+
+	timeTimer->Pause(true);
+
+	timeTimer->SetIsInfluenceOfTimeScale(false);
+
+	timeUI = new ChargeUI(nullptr, Resources->LoadTexture("UI/ChargeUI/time_stop.png"), Vector2(66, 0), &timeCharge);
+
+	OBJECTMANAGER->AddGameObject(timeUI, GameObject::UI);
+
+	timeUI->SetPos(Vector3(508, 32, -1));
 }
 
 void Player::Update()
 {
+	if (cinema_state == STAGE_END)
+	{
+		pos.x += ELTime * moveSpeed;
+		Timer::SetTimeScale(1.0f);
+		if (pos.x > SCREEN_X * 0.5f + 100)
+			GAMEMANAGER->ChangeStage();
+		PlayerAttack();
+		pos.z = FixZToY(pos.y);
+		return;
+	}
+	if (cinema_state == PLAYER_END)
+		return;
 	PlayerMove();
 	PlayerAttack();
 	PlayerTimeStop();
@@ -85,14 +111,16 @@ void Player::Render()
 
 void Player::Release()
 {
-	motionBlur->SetDestroy(true);
-	Timer::RemoveTimer(jumpTimer);
+	if(motionBlur)
+		motionBlur->SetDestroy(true);
+	if(jumpTimer)
+		Timer::RemoveTimer(jumpTimer);
 	gun.clear();
 }
 
-bool Player::CharacterDie(Vector3 moveVec3)
+void Player::CharacterDie(Vector3 moveVec3)
 {
-	return false;
+	PlayerJump();
 }
 
 void Player::PlayerMove()
@@ -102,17 +130,22 @@ void Player::PlayerMove()
 		moveVector.y = 0;
 	else
 		moveVector.y = INPUTMANAGER->GetVertical();
-
-	if (moveVector.x < 0)
-		moveVector.x = -0.7f;
 	
 	Vector3 nextPos = pos + moveVector * moveSpeed * ELTime;
 
-	if (background->IsGroundCollision(Vector2(nextPos)) == Background::NONE 
-		|| ride == nullptr)
+	if (ride == nullptr && nextPos.y < -SCREEN_Y * 0.5f + 20)
+		GAMEMANAGER->PlayerDie();
+	Background::GROUND_COLLISION collision = background->IsGroundCollision(Vector2(nextPos));
+
+	nextPos.x = min(max(nextPos.x, -SCREEN_X * 0.5f), SCREEN_X * 0.5f);
+	nextPos.y = min(max(nextPos.y, -SCREEN_Y * 0.5f + 20), SCREEN_Y * 0.5f);
+
+	if (collision == Background::NONE || ride == nullptr)
 		pos = nextPos;
-	pos.x = min(max(pos.x, -SCREEN_X * 0.5f), SCREEN_X * 0.5f);
-	pos.y = min(max(pos.y, -SCREEN_Y * 0.5f), SCREEN_Y * 0.5f);
+	else if (collision == Background::UNACCESS_UP)
+		pos = Vector3(nextPos.x, pos.y + 10, nextPos.z);
+	else if (collision == Background::UNACCESS_DOWN)
+		pos = Vector3(nextPos.x, pos.y - 10, nextPos.z);
 	
 	pos.z = FixZToY(pos.y);
 
@@ -138,7 +171,7 @@ void Player::PlayerAttack()
 		Vector3 dir = ScreenToWorldCamera(INPUTMANAGER->GetMousePos());
 		dir = GetVec3Distance(Vector3(pos.x, pos.y, 0), dir);
 
-		gun[nowGun]->MakeRifleBullet(pos, PLAYER_BULLET, true, 1000);
+		gun[nowGun]->GunShoot(PLAYER_BULLET, 1000);
 		gun[nowGun]->timer->Reset(gun[nowGun]->maxTime);
 	}
 }
@@ -146,21 +179,33 @@ void Player::PlayerAttack()
 void Player::PlayerTimeStop()
 {
 	static bool isTimeStop = false;
+	static bool isNoCharge = false;
 
-	isTimeStop = INPUTMANAGER->IsKeyPress(VK_SHIFT);
+	isTimeStop = (INPUTMANAGER->IsKeyPress(VK_SHIFT) && !timeTimer->IsEnd);
 
-	if (isTimeStop == true)
+	timeCharge = (int)timeTimer->GetAnyTime();
+
+	if (timeTimer->IsEnd)
+	{
+		isNoCharge = timeTimer->IsEnd;
+	}
+
+	if (isTimeStop == true && isNoCharge == false)
 	{
 		Timer::SetTimeScale(Lerp(Timer::GetTimeScale(), 0.1f, 0.05f));
 
 		backEffect->SetColor(Color(1, 1, 1, Lerp(backEffect->GetColor().a, 1.0f, 0.25f)));
+		timeTimer->Pause(false);
 	}
-
-	if (isTimeStop == false)
+	else
 	{
 		Timer::SetTimeScale(Lerp(Timer::GetTimeScale(), 1.0f, 0.05f));
 
 		backEffect->SetColor(Color(1, 1, 1, Lerp(backEffect->GetColor().a, 0.0f, 0.25f)));
+		timeTimer->Reset(min(timeTimer->GetAnyTime() + DXUTGetElapsedTime(), 5));
+		timeTimer->Pause(true);
+		if (isNoCharge && timeTimer->GetAnyTime() > 1.0f)
+			isNoCharge = false;
 	}
 }
 

@@ -3,6 +3,7 @@
 
 SceneManager::SceneManager()
 {
+	sceneChange = Resources->LoadTextures("UI/next_go_scence/%d.png", 1, 17);
 }
 
 SceneManager::~SceneManager()
@@ -10,14 +11,15 @@ SceneManager::~SceneManager()
 	Release();
 }
 
-void SceneManager::AddScene(Scene* scene)
+void SceneManager::AddScene(Scene* scene, bool isSceneChangeEffect)
 {
 	nextScene = scene;
+	isSceneChange = isSceneChangeEffect;
 }
 
 void SceneManager::Update()
 {
-	if (nextScene)
+	if ((!isSceneChange && nextScene) || (nextScene && nowSceneChangeTexture >= 8))
 	{
 		SAFE_RELEASE(nowScene);
 		SAFE_DELETE(nowScene);
@@ -37,6 +39,20 @@ void SceneManager::Update()
 void SceneManager::Render()
 {
 	nowScene->Render();
+
+	if (isSceneChange)
+	{
+		RENDERMANAGER->DrawSprite(sceneChange[(int)nowSceneChangeTexture],
+			Vector3(SCREEN_X * 0.5f, SCREEN_Y * 0.5f, 0));
+
+		nowSceneChangeTexture += 0.2f;
+
+		if (nowSceneChangeTexture >= sceneChange.size())
+		{
+			nowSceneChangeTexture = 0;
+			isSceneChange = false;
+		}
+	}
 }
 
 void SceneManager::Release()

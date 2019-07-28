@@ -5,6 +5,7 @@
 class Gun;
 class MotionBlur;
 class Background;
+class ChargeUI;
 class Ride :
 	public GameObject
 {
@@ -26,6 +27,8 @@ private:
 
 	MotionBlur* motion = nullptr;
 	Background* background = nullptr;
+	ChargeUI* hpUI = nullptr;
+	Timer* hitTimer = nullptr;
 
 	Vector3 moveVector = Vector3(0, 0, 0);
 
@@ -44,5 +47,6 @@ public:
 	Gun* CreateGun();
 	void Die();
 	void RidePlayer();
+	void SetHp(int value) { hp = value; }
 };
 

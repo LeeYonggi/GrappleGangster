@@ -24,7 +24,9 @@ public:
 	Matrix GetView() { return view; }
 
 public:
+	void Init();
 	void Update();
+	void Release();
 	void SetCamera();
 	void OneStopCamera(float time);
 };

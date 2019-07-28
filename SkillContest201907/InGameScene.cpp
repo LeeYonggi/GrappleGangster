@@ -7,8 +7,6 @@
 
 void InGameScene::Init()
 {
-	OBJECTMANAGER->AddGameObject(new Background(), GameObject::BACKGROUND);
-	
 	GAMEMANAGER->Init();
 }
 

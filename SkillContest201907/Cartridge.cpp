@@ -2,6 +2,7 @@
 #include "Cartridge.h"
 
 #include "Background.h"
+#include "AnimeEffect.h"
 
 Cartridge::Cartridge(Vector3 spawnPos, Background *_background)
 {
@@ -30,20 +31,35 @@ void Cartridge::Init()
 
 void Cartridge::Update()
 {
-	if (pos.y < pos.z - SCREEN_Y * 0.5f - maxY)
+	if (pos.y > pos.z - SCREEN_Y * 0.5f - maxY || (GAMEMANAGER->stage == STAGE_3 && pos.y > -90))
 	{
-		moveVector = Vector2(-background->GetMoveSpeed(), 0);
-		pos += Vector3(moveVector) * ELTime;
+		pos += Vector3(moveVector.x, moveVector.y, 0) * ELTime;
+		moveVector -= Vector2(200, 1700) * ELTime;
+		rotate += GetRandomNumberBetween(400, 700) * ELTime;
 	}
 	else if (pos.x < -640)
 	{
 		SetDestroy(true);
 	}
+	else if (GAMEMANAGER->stage != STAGE_1)
+	{
+		vector<Texture*> anime = Resources->LoadTextures("Effect/splash/%d.png", 1, 9);
+
+		AnimeEffect* effect = new AnimeEffect(0.8f, anime);
+
+		OBJECTMANAGER->AddGameObject(effect, GAMEOBJECT_STATE::EFFECT);
+
+		effect->SetScale(Vector2(1, 1));
+
+		effect->SetPos(pos);
+
+		SetDestroy(true);
+	}
 	else
 	{
-		pos += Vector3(moveVector.x, moveVector.y, 0) * ELTime;
-		moveVector -= Vector2(200, 1700) * ELTime;
-		rotate += GetRandomNumberBetween(400, 700) * ELTime;
+		moveVector = Vector2(-background->GetMoveSpeed(), 0);
+		pos += Vector3(moveVector) * ELTime;
+		pos.z = 400;
 	}
 }
 

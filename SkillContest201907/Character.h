@@ -7,11 +7,17 @@ public:
 	Character();
 	virtual ~Character();
 
+public:
+	enum CINEMA_STATE
+	{
+		IDLE,
+		STAGE_END,
+		PLAYER_END
+	};
+
 protected:
 	int hp = 1;
-	int a;
-	int b;
-	int c;
+	CINEMA_STATE cinema_state = CINEMA_STATE::IDLE;
 
 public:
 	// GameObject을(를) 통해 상속됨
@@ -21,10 +27,11 @@ public:
 	virtual void Release()	= 0;
 
 public:
-	virtual bool CharacterDie(Vector3 moveVec3) = 0;
+	virtual void CharacterDie(Vector3 moveVec3) = 0;
 
 public:
 	void SetHp(int value) { hp = value; }
 	int GetHp() { return hp; }
+	void SetCinemaState(CINEMA_STATE state) { cinema_state = state; }
 };
 

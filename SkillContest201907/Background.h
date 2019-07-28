@@ -11,7 +11,8 @@ public:
 	enum GROUND_COLLISION
 	{
 		NONE,
-		UNACCESS,
+		UNACCESS_DOWN,
+		UNACCESS_UP,
 		HIT,
 	};
 
@@ -19,13 +20,16 @@ private:
 	float moveSpeed = 0.0f;
 
 	Vector3 backPosition = Vector3(0, 0, 0);
+	Vector3 backPosition2 = Vector3(0, 0, 0);
 
 	Texture* backTexture = nullptr;
+	Texture* backTexture2 = nullptr;
 
 	Texture* nowPixelTexture = nullptr;
 
 	vector<Texture*> mainTextures;
 	vector<Vector3> texturePosition;
+	vector<DWORD*> pixelColor;
 
 	vector<Texture*> pixelTextures;
 
@@ -39,6 +43,8 @@ public:
 public:
 	float GetMoveSpeed() { return moveSpeed; }
 	void PushBackGround();
+	void PushWaveGround();
+	void CyclingGround();
 	void SetPixelTexture(Texture* value) { nowPixelTexture = value; }
 	GROUND_COLLISION IsGroundCollision(Vector2 pos);
 

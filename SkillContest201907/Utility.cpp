@@ -43,9 +43,9 @@ float FixZToY(float y)
 int GetRandomNumberBetween(int n1, int n2)
 {
 	std::random_device rd;
-	std::mt19937 mersenne(rd());
+	std::mt19937_64 mersenne(rd());
 
-	std::uniform_int_distribution<> between(n1, n2);
+	std::uniform_int_distribution<int> between(n1, n2);
 
 	return between(mersenne);
 }

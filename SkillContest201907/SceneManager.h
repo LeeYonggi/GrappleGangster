@@ -13,9 +13,16 @@ public:
 private:
 	Scene* nowScene = nullptr;
 	Scene* nextScene = nullptr;
+	vector<Texture*> sceneChange;
+	float nowSceneChangeTexture = 0;
+	bool isSceneChange = false;
 
 public:
-	void AddScene(Scene	*scene);
+	void AddScene(Scene	*scene, bool isSceneChangeEffect);
+	void SetSceneChangeEffect(bool isSceneChangeEffect) 
+	{
+		isSceneChange = isSceneChangeEffect;
+	}
 	void Update();
 	void Render();
 	void Release();
