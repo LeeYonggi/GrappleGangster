@@ -14,7 +14,6 @@
 
 GameManager::GameManager()
 {
-	maxWave = 1;
 }
 
 GameManager::~GameManager()
@@ -92,6 +91,25 @@ void GameManager::Render()
 
 void GameManager::Release()
 {
+}
+
+void GameManager::Reset()
+{
+	enemyCount = 0;
+	wave = 0;
+	maxWave = 10;
+	hp = 2;
+	background = nullptr;
+	carTimer = nullptr;
+	isPlayerDie = false;
+	isStageChange = false;
+	stage = STAGE_1;
+	car = nullptr;
+	endTimer = nullptr;
+	gameOver.clear();
+	nowOverImage = 0.0f;
+
+	maxWave = 1;
 }
 
 void GameManager::CreateEnemy1()

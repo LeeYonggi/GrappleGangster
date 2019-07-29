@@ -273,3 +273,8 @@ void Player::PlayerGun()
 		reload->SetActive(false);
 }
 
+void Player::Reload()
+{
+	Release();
+	Init();
+}

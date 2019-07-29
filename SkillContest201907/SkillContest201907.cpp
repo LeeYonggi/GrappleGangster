@@ -153,8 +153,8 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     DXUTInit( true, true, NULL, true ); // Parse the command line and show msgboxes
     DXUTSetHotkeyHandling( true, true, true );  // handle the default hotkeys
     DXUTSetCursorSettings( false, false ); // Show the cursor and clip it when in full screen
-    DXUTCreateWindow( L"SkillContest201907" );
-    DXUTCreateDevice( true, 1280, 720);
+    DXUTCreateWindow( L"Gangstar" );
+    DXUTCreateDevice( false, 1280, 720);
 
     // Start the render loop
     DXUTMainLoop();

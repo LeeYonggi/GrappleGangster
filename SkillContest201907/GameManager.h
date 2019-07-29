@@ -45,6 +45,8 @@ public:
 	void Update();
 	void Render();
 	void Release();
+	
+	void Reset();
 
 public:
 	void CreateEnemy1();

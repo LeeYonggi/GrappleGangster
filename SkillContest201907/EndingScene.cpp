@@ -18,7 +18,7 @@ void EndingScene::Update()
 
 void EndingScene::Render()
 {
-	RENDERMANAGER->DrawSprite(texture, { 640, 360, 0 }, { 1, 1 }, {1, 1}, color.a * 1440, color);
+	RENDERMANAGER->DrawSprite(texture, { 640, 360, 0 }, { 1, 1 }, {1, 1}, min(color.a, 1.0f) * 1440, color);
 }
 
 void EndingScene::Release()

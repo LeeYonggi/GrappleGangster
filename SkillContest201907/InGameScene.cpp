@@ -7,6 +7,7 @@
 
 void InGameScene::Init()
 {
+	GAMEMANAGER->Reset();
 	GAMEMANAGER->Init();
 }
 

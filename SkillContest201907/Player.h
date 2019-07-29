@@ -63,6 +63,7 @@ public:
 	void PlayerJump();
 	void PlayerJumpUpdate();
 	void PlayerGun();
+	void Reload();
 
 
 public:
