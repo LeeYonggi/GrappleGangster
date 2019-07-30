@@ -126,6 +126,9 @@
     <Filter Include="Scenes\EndingScene">
       <UniqueIdentifier>{50d2c725-ae72-47a2-a051-dc37a2676cfd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\SoundManager">
+      <UniqueIdentifier>{65d5fc32-893b-4e45-a444-07ecc6d26a79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -293,6 +296,15 @@
     <ClCompile Include="EndingScene.cpp">
       <Filter>Scenes\EndingScene</Filter>
     </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Manager\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKsound.cpp">
+      <Filter>DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKwavefile.cpp">
+      <Filter>DXUT</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -412,6 +424,15 @@
     </ClInclude>
     <ClInclude Include="EndingScene.h">
       <Filter>Scenes\EndingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Manager\SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKsound.h">
+      <Filter>DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKwavefile.h">
+      <Filter>DXUT</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

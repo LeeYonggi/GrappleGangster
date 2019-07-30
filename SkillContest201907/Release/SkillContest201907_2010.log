@@ -1,3 +1,0 @@
-﻿  failed to open file: D:\��ɴ�ȸ\SkillContest201907\SkillContest201907\DefaultShader.fx
-  compilation failed; no code produced
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(1364,5): error MSB6006: "fxc.exe"이(가) 종료되었습니다(코드: 1).

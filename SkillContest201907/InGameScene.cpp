@@ -7,6 +7,8 @@
 
 void InGameScene::Init()
 {
+	//SOUNDMANAGER->AddSound("Ingame", L"./Resources/Music/bensound-rumble.mp3");
+	//SOUNDMANAGER->PlayWavSound("Ingame", true);
 	GAMEMANAGER->Reset();
 	GAMEMANAGER->Init();
 }
