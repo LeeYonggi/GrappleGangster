@@ -17,6 +17,9 @@ void Bullet::Init()
 
 	radius = 5.0f;
 
+	SOUNDMANAGER->AddSound("bullet", L"./Resources/Music/bullet.wav");
+	SOUNDMANAGER->DuplicatePlay("bullet");
+
 	if (!isInfluenceBackground)
 	{
 		vector<Texture*> anime;

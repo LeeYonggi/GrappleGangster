@@ -229,4 +229,6 @@ void Ride::RidePlayer()
 			player->gun[1]->reloadCount = 10;
 		}
 	}
+	SOUNDMANAGER->AddSound("Explosion", L"./Resources/Music/Explosion.wav");
+	SOUNDMANAGER->DuplicatePlay("Explosion");
 }

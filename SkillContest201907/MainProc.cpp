@@ -41,13 +41,14 @@ void MainProc::Render()
 
 void MainProc::Release()
 {
-	CAMERAMANAGER->ReleaseInstance();
-	RENDERMANAGER->ReleaseInstance();
-	OBJECTMANAGER->ReleaseInstance();
-	SCENEMANAGER->ReleaseInstance();
-	INPUTMANAGER->ReleaseInstance();
-	GAMEMANAGER->ReleaseInstance();
-	Resources->ReleaseInstance();
+	CameraManager::ReleaseInstance();
+	RenderManager::ReleaseInstance();
+	ObjectManager::ReleaseInstance();
+	SceneManager::ReleaseInstance();
+	InputManager::ReleaseInstance();
+	GameManager::ReleaseInstance();
+	ResourceManager::ReleaseInstance();
+	SoundManager::ReleaseInstance();
 
 	Timer::RemoveAll();
 }

@@ -28,6 +28,8 @@ void Gun::Update()
 		reloadTimer->Reset(maxReloadTime);
 		reloadTimer->Pause(true);
 		gage->SetActive(false);
+		SOUNDMANAGER->AddSound("reload", L"./Resources/Music/reload.wav");
+		SOUNDMANAGER->DuplicatePlay("reload");
 	}
 	Vector2 gagePos = WorldCameraToScreen(owner->GetPos());
 	gage->SetPos(Vector3(gagePos.x, gagePos.y - 35, 0));

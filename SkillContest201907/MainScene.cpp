@@ -64,6 +64,8 @@ void MainScene::Init()
 		GameObject::UI);
 	mainHowTo->SetPos(Vector3(640, 360, -1));
 	mainHowTo->SetActive(false);
+	SOUNDMANAGER->AddSound("MainGame", L"./Resources/Music/Action Game.wav");
+	SOUNDMANAGER->PlayWavSound("MainGame", true);
 }
 
 void MainScene::Update()
@@ -107,4 +109,5 @@ void MainScene::Render()
 void MainScene::Release()
 {
 	Timer::RemoveTimer(timer);
+	SOUNDMANAGER->Stop("MainGame");
 }
